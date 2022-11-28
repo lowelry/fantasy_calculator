@@ -24,7 +24,6 @@ players_names_list = team_name_list.roster
 players_names_str = (",".join(map(str,players_names_list)))
 players_names_str = players_names_str.replace("Player(", "")
 players_names_str = players_names_str.replace(")", "")
-print(players_names_str)
 players_names_list = list(players_names_str.split(","))
 name_number = 0
 while name_number < 16:
@@ -43,8 +42,10 @@ team_name_box = ttk.Combobox(mainframe, values=team_name_list)
 team_name_box.grid(column=1, row=0, sticky=(S, S))
 #team_name_box.bind('<<ComboboxSelected>>', 0)  #обработчик событий выпадающего листа
 
+team = league.teams[0]
+player = team.roster[0]
 ttk.Label(mainframe, text="AVR").grid(column=2, row=2, sticky=S)    #третий столбец
-ttk.Label(mainframe, text="Pl1").grid(column=2, row=3, sticky=S)
+ttk.Label(mainframe, text=player.avg_points).grid(column=2, row=3, sticky=S)
 ttk.Label(mainframe, text="Pl2").grid(column=2, row=4, sticky=S)
 ttk.Label(mainframe, text="Pl3").grid(column=2, row=5, sticky=S)
 ttk.Label(mainframe, text="Pl4").grid(column=2, row=6, sticky=S)
