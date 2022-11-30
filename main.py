@@ -23,29 +23,85 @@ root.rowconfigure(0, weight=1)
 in_game_checkbox = StringVar()
 ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=3,
                                                                                                     sticky=S)
-
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=4,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=5,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=6,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=7,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=8,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=9,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=10,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=11,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=12,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=13,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=14,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=15,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=16,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=17,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=18,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=19,
+                                                                                                    sticky=S)
+ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=20,
+                                                                                                    sticky=S)
 
 ttk.Label(mainframe, text="Выберите команду:").grid(column=1, row=0, sticky=W)  # первый столбец
 ttk.Label(mainframe, text="Состав").grid(column=1, row=2, sticky=W)
 
 team_number = 0
-team_name_list = league.teams[team_number]
-players_names_list = team_name_list.roster
-players_names_str = (",".join(map(str, players_names_list)))
-players_names_str = players_names_str.replace("Player(", "")
-players_names_str = players_names_str.replace(")", "")
-players_names_list = list(players_names_str.split(","))
-team = league.teams[team_number]
-name_number = 0
-while name_number < 17:
-    # пишем имя игрока в 1 столбец
-    ttk.Label(mainframe, text=players_names_list[name_number]).grid(column=1, row=name_number + 3, sticky=W)
-    # пишем инжури статус в 2 столбец
-    ttk.Label(mainframe, text=team.roster[name_number].injuryStatus.lower()).grid(column=2, row=name_number + 3,
-                                                                                  sticky=S)
-    # пишем AVR игрока в 3 столбец
-    ttk.Label(mainframe, text=team.roster[name_number].avg_points).grid(column=3, row=name_number + 3, sticky=S)
-    name_number += 1
+team_name_list = list
+team = list
+def writeroster():
+    global team_name_list
+    team_name_list = league.teams[team_number]
+    players_names_list = team_name_list.roster
+    players_names_str = (",".join(map(str, players_names_list)))
+    players_names_str = players_names_str.replace("Player(", "")
+    players_names_str = players_names_str.replace(")", "")
+    players_names_list = list(players_names_str.split(","))
+    global team
+    team = league.teams[team_number]
+    name_number = 0
+    while name_number < 18:
+        # очищаем имя игрока в 1 столбеце
+        ttk.Label(mainframe, text="").grid(column=1, row=name_number + 3, sticky=W + E + N + S)
+        # очищем AVR игрока в 3 столбце
+        ttk.Label(mainframe, text="").grid(column=3, row=name_number + 3, sticky=W + E + N + S)
+        # очищаем инжури статус в 2 столбце
+        ttk.Label(mainframe, text="").grid(column=2, row=name_number + 3, sticky=W + E + N + S)
+        # очищаем боксы и Week Avr
+        resetChbxsAndRdbtns()
+        name_number += 1
+    name_number = 0
+    while name_number < 18:
+        # пишем имя игрока в 1 столбец
+        ttk.Label(mainframe, text=players_names_list[name_number]).grid(column=1, row=name_number + 3,
+                                                                        sticky=W + E + N + S)
+        # пишем инжури статус в 2 столбец
+        ttk.Label(mainframe, text=team.roster[name_number].injuryStatus.lower()).grid(column=2, row=name_number + 3,
+                                                                                      sticky=N + S)
+        # пишем AVR игрока в 3 столбец
+        ttk.Label(mainframe, text=team.roster[name_number].avg_points).grid(column=3, row=name_number + 3,
+                                                                            sticky=W + E + N + S)
+        name_number += 1
+
+def team_name_box_function(*arg):
+    global team_number
+    team_number = team_name_box.current()
+    writeroster()
 
 team_name_list = league.teams   # второй столбец
 team_name_str = (" ".join(map(str, team_name_list)))
@@ -54,7 +110,7 @@ team_name_str = team_name_str.replace(")", ".")
 team_name_list = list(team_name_str.split(". "))
 team_name_box = ttk.Combobox(mainframe, values=team_name_list)
 team_name_box.grid(column=2, row=0, sticky=(S+S))
-# team_name_box.bind('<<ComboboxSelected>>', 0)  # обработчик событий выпадающего листа
+team_name_box.bind('<<ComboboxSelected>>', team_name_box_function)  # обработчик событий выпадающего листа
 ttk.Label(mainframe, text="статус").grid(column=2, row=2, sticky=S)
 
 ttk.Label(mainframe, text="AVR").grid(column=3, row=2, sticky=S)
@@ -215,32 +271,59 @@ ttk.Radiobutton(mainframe, variable=pl15gmNumber, value=3, command=pl15wkAvr).gr
 ttk.Radiobutton(mainframe, variable=pl15gmNumber, value=4, command=pl15wkAvr).grid(column=7, row=17, sticky=S)
 ttk.Radiobutton(mainframe, variable=pl15gmNumber, value=5, command=pl15wkAvr).grid(column=8, row=17, sticky=S)
 
+def pl16wkAvr():
+    ttk.Label(mainframe, text=round(team.roster[15].avg_points * pl16gmNumber.get(), 2)).grid(column=9, row=18,
+                                                                                              sticky=N+S)
+
 pl16gmNumber = IntVar()
-ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=2).grid(column=5, row=18, sticky=S)
-ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=3).grid(column=6, row=18, sticky=S)
-ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=4).grid(column=7, row=18, sticky=S)
-ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=5).grid(column=8, row=18, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=2, command=pl16wkAvr).grid(column=5, row=18, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=3, command=pl16wkAvr).grid(column=6, row=18, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=4, command=pl16wkAvr).grid(column=7, row=18, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl16gmNumber, value=5, command=pl16wkAvr).grid(column=8, row=18, sticky=S)
+
+def pl17wkAvr():
+    ttk.Label(mainframe, text=round(team.roster[16].avg_points * pl17gmNumber.get(), 2)).grid(column=9, row=19,
+                                                                                              sticky=N+S)
 
 pl17gmNumber = IntVar()
-ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=2).grid(column=5, row=19, sticky=S)
-ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=3).grid(column=6, row=19, sticky=S)
-ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=4).grid(column=7, row=19, sticky=S)
-ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=5).grid(column=8, row=19, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=2, command=pl17wkAvr).grid(column=5, row=19, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=3, command=pl17wkAvr).grid(column=6, row=19, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=4, command=pl17wkAvr).grid(column=7, row=19, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl17gmNumber, value=5, command=pl17wkAvr).grid(column=8, row=19, sticky=S)
+
+def pl18wkAvr():
+    ttk.Label(mainframe, text=round(team.roster[17].avg_points * pl18gmNumber.get(), 2)).grid(column=9, row=20,
+                                                                                              sticky=N+S)
+
+pl18gmNumber = IntVar()
+ttk.Radiobutton(mainframe, variable=pl18gmNumber, value=2, command=pl18wkAvr).grid(column=5, row=20, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl18gmNumber, value=3, command=pl18wkAvr).grid(column=6, row=20, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl18gmNumber, value=4, command=pl18wkAvr).grid(column=7, row=20, sticky=S)
+ttk.Radiobutton(mainframe, variable=pl18gmNumber, value=5, command=pl18wkAvr).grid(column=8, row=20, sticky=S)
 
 ttk.Label(mainframe, text="Week AVR").grid(column=9, row=2, sticky=S)   # девятый столбец
-ttk.Label(mainframe, text="Pl16").grid(column=9, row=18, sticky=S)
-ttk.Label(mainframe, text="Pl17").grid(column=9, row=19, sticky=S)
 
 ttk.Label(mainframe, text="Total week team AVR:").grid(column=10, row=2, sticky=S)   # десятый столбец
 
 ttk.Label(mainframe, text="total").grid(column=11, row=2, sticky=S)    # одиннадцатый столбец
-ttk.Button(mainframe, text="Обновить", command=0).grid(column=11, row=21, sticky=S)
+
+def resetChbxsAndRdbtns():
+    in_game_checkbox.set(value="out"), pl1gmNumber.set(value=0), pl2gmNumber.set(value=0), pl3gmNumber.set(value=0)
+    pl4gmNumber.set(value=0), pl5gmNumber.set(value=0), pl6gmNumber.set(value=0), pl7gmNumber.set(value=0)
+    pl8gmNumber.set(value=0), pl9gmNumber.set(value=0), pl10gmNumber.set(value=0), pl11gmNumber.set(value=0)
+    pl12gmNumber.set(value=0), pl13gmNumber.set(value=0), pl14gmNumber.set(value=0), pl15gmNumber.set(value=0)
+    pl16gmNumber.set(value=0), pl17gmNumber.set(value=0), pl18gmNumber.set(value=0)
+    name_number = 0
+    while name_number < 18:
+        ttk.Label(mainframe, text="").grid(column=9, row=name_number + 3, sticky=W + E + N + S)
+        name_number += 1
+
+ttk.Button(mainframe, text="Очистить", command=resetChbxsAndRdbtns).grid(column=11, row=21, sticky=S)
 
 for child in mainframe.winfo_children():
     child.grid_configure(padx=5, pady=5)
 
 team_name_box.focus()
 root.bind("<Return>", 0)
-
 
 root.mainloop()
