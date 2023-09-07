@@ -10,7 +10,7 @@ root = Tk()
 root.title("ЛББП")
 root.state("zoomed")
 
-# создание стиля оторажения
+# создание стиля отображения
 # style = ttk.Style()
 # style.configure("BW.TLabel", foreground="black", background="white")
 
@@ -18,7 +18,7 @@ mainframe = ttk.Frame(root, padding="11 22")    # создаем сетку
 mainframe.grid(column=0, row=0, sticky=(S+S+S+S))
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
-#mainframe.configure(style="BW.TLabel")  #применение стиля
+# mainframe.configure(style="BW.TLabel")  #применение стиля
 
 in_game_checkbox = StringVar()
 ttk.Checkbutton(mainframe, command=0, variable=in_game_checkbox, onvalue='in', offvalue='out').grid(column=0, row=3,
