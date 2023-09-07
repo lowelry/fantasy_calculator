@@ -5,7 +5,8 @@ def main(page: ft.page):
     textField = ft.TextField()
     addBtn = ft.ElevatedButton(text="Add")
 
-    page.bg_color = "#FF0000"
+    page.bgcolor = "#FF9B82"
+    addBtn.bgcolor = "#57375D"
 
     page.add(textField, addBtn)
 
