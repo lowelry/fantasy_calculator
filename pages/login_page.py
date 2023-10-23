@@ -3,11 +3,12 @@ from utils.extras import *
 
 
 class LogInPage(Container):
-    def __init__(self, validate_inputs):
+    def __init__(self, validate_inputs, show_btn_click):
         super().__init__()
         self.expand = True
         self.offset = transform.Offset(0, 0)
         self.validate_inputs = validate_inputs
+        self.show_btn_click = show_btn_click
 
         self.input_leagueyr = Container(
             # поле года лиги
@@ -73,6 +74,43 @@ class LogInPage(Container):
             )
         )
 
+        self.show_btn = Container(
+            # кнопка шоу
+            content=Text(
+                value='SHOW',
+                size=12,
+                color=input_hint_color,
+                weight=FontWeight.NORMAL
+            ),
+            height=btn_height,
+            width=btn_wigth,
+            bgcolor=start_btn_color,
+            border=border.all(0.1),
+            border_radius=10,
+            alignment=alignment.center,
+            shadow=BoxShadow(
+                offset=Offset(2, 2),
+                blur_style=ShadowBlurStyle.INNER,
+                blur_radius=50
+            ),
+            on_click=self.show_btn_click
+        )
+
+        self.error_field = Container(
+            # строка с сообщением об ошибке входа
+            content=Text(
+                value='',
+                size=12,
+                color="#ff9600",
+                weight=FontWeight.NORMAL,
+                text_align=TextAlign.CENTER,
+                selectable=True
+            ),
+            height=60,
+            width=btn_wigth,
+            alignment=alignment.center
+        )
+
         self.startpage_elements = Column(
              controls=[
                 Row(
@@ -87,25 +125,7 @@ class LogInPage(Container):
                     # строка с кнопкой шоу
                     alignment=MainAxisAlignment.SPACE_EVENLY,
                     controls=[
-                        Container(
-                            height=btn_height,
-                            width=btn_wigth,
-                            bgcolor=start_btn_color,
-                            border=border.all(0.1),
-                            border_radius=10,
-                            alignment=alignment.center,
-                            content=Text(
-                                value='SHOW',
-                                size=12,
-                                color=input_hint_color,
-                                weight=FontWeight.NORMAL
-                            ),
-                            shadow=BoxShadow(
-                                offset=Offset(2, 2),
-                                blur_style=ShadowBlurStyle.INNER,
-                                blur_radius=50
-                            ),
-                        )
+                        self.show_btn
                     ]
                 ),
                 Row(
@@ -114,23 +134,22 @@ class LogInPage(Container):
                     controls=[
                         Container(
                             # чекбокс запонимания лиги на следующую сессию
-                            height=btn_height,
+                            height=30,
                             width=220,
                             alignment=alignment.top_left,
                             padding=padding.only(left=-34, top=-12),
-                            # bgcolor="GREY",
                             content=Checkbox(
                                 scale=0.8,
                                 value=False,
                                 label="Save for the next session",
+                                on_change=lambda e: print("it`s click, but it`s not clack")
                             ),
                         ),
                         Container(
                             # ссылка на очистку полей ввода
-                            height=btn_height,
+                            height=30,
                             width=120,
                             alignment=alignment.top_right,
-                            # bgcolor="GREY",
                             content=Text(
                                 size=14.5,
                                 weight=FontWeight.NORMAL,
@@ -144,6 +163,12 @@ class LogInPage(Container):
                                 ]
                             )
                         )
+                    ]
+                ),
+                Row(
+                    alignment=MainAxisAlignment.SPACE_EVENLY,
+                    controls=[
+                        self.error_field
                     ]
                 )
              ]
@@ -169,7 +194,7 @@ class LogInPage(Container):
                     Container(
                         padding=padding.only(top=365),
                         content=self.startpage_elements
-                    ),
+                    )
                 ]
             )
         )
