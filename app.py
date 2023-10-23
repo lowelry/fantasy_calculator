@@ -10,7 +10,7 @@ class WindowDrag(UserControl):
         # self.color = color
 
     def build(self):
-        return Container(content=WindowDragArea(height=10, content=Container(bgcolor='grey')))
+        return Container(content=WindowDragArea(height=10, content=Container(bgcolor='WHITE')))
 
 
 class App(UserControl):
@@ -33,22 +33,30 @@ class App(UserControl):
 
         self.pg = pg
         self.pg.spacing = 0
-        self.start_page = LogInPage(self.validate_inputs)
+        self.login_page = LogInPage(self.validate_inputs, self.show_btn_click)
         self.screen_views = Stack(
             controls=[
-                self.start_page
+                self.login_page
             ]
         )
         self.init_helper()
 
     def validate_inputs(self, e):
         # валидация ввода ID
-        self.start_page.input_leagueid.content.value = is_valid_input_str(self.start_page.input_leagueid.content.value)
-        self.start_page.update()
+        self.login_page.input_leagueid.content.value = is_valid_input_str(self.login_page.input_leagueid.content.value)
+        self.login_page.update()
 
         # валидация ввода года
-        self.start_page.input_leagueyr.content.value = is_valid_input_str(self.start_page.input_leagueyr.content.value)
-        self.start_page.update()
+        self.login_page.input_leagueyr.content.value = is_valid_input_str(self.login_page.input_leagueyr.content.value)
+        self.login_page.update()
+
+    def show_btn_click(self, e):
+        inputid = self.login_page.input_leagueid.content.value
+        inputyr = self.login_page.input_leagueyr.content.value
+        self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)
+        self.login_page.update()
+
+
 
     def init_helper(self):
         self.pg.add(
