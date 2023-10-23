@@ -10,7 +10,7 @@ class WindowDrag(UserControl):
         # self.color = color
 
     def build(self):
-        return Container(content=WindowDragArea(height=10, content=Container(bgcolor='WHITE')))
+        return Container(content=WindowDragArea(height=10, content=Container(bgcolor=base_color)))
 
 
 class App(UserControl):
@@ -20,7 +20,7 @@ class App(UserControl):
         pg.window_frameless = True
         pg.window_title_bar_buttons_hidden = True
         pg.bgcolor = colors.TRANSPARENT
-        pg.window_bgcolor = colors.TRANSPARENT
+        pg.window_bgcolor = base_color
         pg.window_width = base_wigth
         pg.window_height = base_height
         pg.theme_mode = "Light"
@@ -55,8 +55,6 @@ class App(UserControl):
         inputyr = self.login_page.input_leagueyr.content.value
         self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)
         self.login_page.update()
-
-
 
     def init_helper(self):
         self.pg.add(

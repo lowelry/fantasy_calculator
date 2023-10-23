@@ -16,7 +16,7 @@ class LogInPage(Container):
             width=start_input_wigth,
             border_radius=10,
             border=border.all(0.1),
-            bgcolor='white',
+            bgcolor=base_color,
             shadow=BoxShadow(
                 offset=Offset(2, 2),
                 blur_style=ShadowBlurStyle.INNER,
@@ -48,7 +48,7 @@ class LogInPage(Container):
             width=start_input_wigth,
             border_radius=10,
             border=border.all(0.1),
-            bgcolor='white',
+            bgcolor=base_color,
             shadow=BoxShadow(
                 offset=Offset(2, 2),
                 blur_style=ShadowBlurStyle.INNER,
@@ -188,13 +188,24 @@ class LogInPage(Container):
                         alignment=alignment.top_center,
 
                         content=Image(
-                            src='assets/images/espn_fantasy_basketball_logo.jpg',
+                            src='assets/images/espn_fantasy_basketball_logo-1.jpg',
                         )
                     ),
+                    # Container(
+                    #     height=base_height,
+                    #     width=base_wigth,
+                    #     padding=padding.only(top=60),
+                    #     alignment=alignment.top_center,
+                    #
+                    #     content=Image(
+                    #         src='assets/images/animated_ball_loading.gif',
+                    #     )
+                    # ),
                     Container(
                         padding=padding.only(top=365),
                         content=self.startpage_elements
-                    )
+                    ),
+
                 ]
             )
         )

@@ -11,6 +11,7 @@ def is_valid_input_str(input_str):
     else:
         return ''
 
+
 def print_data_from_inputs(inputid, inputyr):
     if len(inputid) == 10:
         if len(inputyr) == 4:

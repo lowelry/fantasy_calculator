@@ -1,7 +1,7 @@
 from flet import *
 base_height = 725
 base_wigth = 425
-base_color = '#FFFFFF'
+base_color = '#f0f0f0'
 start_input_height = 80
 start_input_wigth = 170
 btn_height = 80
