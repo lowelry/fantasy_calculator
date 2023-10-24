@@ -1,6 +1,7 @@
 # from flet import *
 from utils.extras import *
 from pages.login_page import LogInPage
+from pages.main_data_page import MainDataPage
 from service.validation import *
 
 
@@ -10,7 +11,7 @@ class WindowDrag(UserControl):
         # self.color = color
 
     def build(self):
-        return Container(content=WindowDragArea(height=10, content=Container(bgcolor=base_color)))
+        return Container(content=WindowDragArea(height=10, content=Container(bgcolor=colors.TRANSPARENT)))
 
 
 class App(UserControl):
@@ -20,7 +21,7 @@ class App(UserControl):
         pg.window_frameless = True
         pg.window_title_bar_buttons_hidden = True
         pg.bgcolor = colors.TRANSPARENT
-        pg.window_bgcolor = base_color
+        pg.window_bgcolor = colors.TRANSPARENT
         pg.window_width = base_wigth
         pg.window_height = base_height
         pg.theme_mode = "Light"
@@ -34,12 +35,22 @@ class App(UserControl):
         self.pg = pg
         self.pg.spacing = 0
         self.login_page = LogInPage(self.validate_inputs, self.show_btn_click)
+        self.main_data_page = MainDataPage()
         self.screen_views = Stack(
             controls=[
-                self.login_page
+                self.login_page,
+                # self.main_data_page
             ]
         )
         self.init_helper()
+
+    # def switch_to_main_data_page(self):
+    #     # Измените размер окна
+    #     self.pg.window_width = self.pg.window_width * 2  # Увеличьте ширину вдвое
+    #     self.pg.window_height = new_height  # Здесь укажите новую высоту окна
+    #
+    #     # Замените текущее содержимое на main_data_page
+    #     self.screen_views.controls = [self.main_data_page]
 
     def validate_inputs(self, e):
         # валидация ввода ID

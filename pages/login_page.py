@@ -37,6 +37,7 @@ class LogInPage(Container):
                     color=input_hint_color
                 ),
                 border=InputBorder.NONE,
+                focused_border_color=start_btn_color,
                 content_padding=padding.only(top=26),
                 on_change=self.validate_inputs
             )
@@ -111,7 +112,7 @@ class LogInPage(Container):
             alignment=alignment.center
         )
 
-        self.startpage_elements = Column(
+        self.loginpage_elements = Column(
              controls=[
                 Row(
                     # строка с номером и годом лиги
@@ -142,6 +143,7 @@ class LogInPage(Container):
                                 scale=0.8,
                                 value=False,
                                 label="Save for the next session",
+                                fill_color={ft.MaterialState.HOVERED: start_btn_color},
                                 on_change=lambda e: print("it`s click, but it`s not clack")
                             ),
                         ),
@@ -175,7 +177,7 @@ class LogInPage(Container):
         )
 
         self.content = Container(
-            # контейнер всего содержимого
+        # контейнер всего содержимого
             height=base_height,
             width=base_wigth,
             bgcolor=base_color,
@@ -186,7 +188,6 @@ class LogInPage(Container):
                         width=base_wigth,
                         padding=padding.only(top=60),
                         alignment=alignment.top_center,
-
                         content=Image(
                             src='assets/images/espn_fantasy_basketball_logo-1.jpg',
                         )
@@ -203,9 +204,9 @@ class LogInPage(Container):
                     # ),
                     Container(
                         padding=padding.only(top=365),
-                        content=self.startpage_elements
+                        content=self.loginpage_elements
                     ),
 
                 ]
-            )
+            ),
         )

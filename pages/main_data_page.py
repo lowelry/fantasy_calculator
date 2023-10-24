@@ -1,0 +1,48 @@
+import flet as ft
+from utils.extras import *
+
+
+class MainDataPage(Container):
+    def __init__(self):
+        super().__init__()
+        self.expand = True
+        self.offset = transform.Offset(0, 0)
+
+        self.startpage_elements = Column(
+        )
+
+        self.content = Container(
+            # контейнер всего содержимого
+            height=base_height,
+            width=base_wigth,
+            bgcolor=base_color,
+            content=Stack(
+                controls=[
+                    # Container(
+                    #     height=base_height,
+                    #     width=base_wigth,
+                    #     padding=padding.only(top=60),
+                    #     alignment=alignment.top_center,
+                    #     content=Image(
+                    #         src='assets/images/espn_fantasy_basketball_logo-1.jpg',
+                    #     )
+                    # ),
+                    Container(
+                        offset=(0.5, 0),
+                        height=base_height,
+                        width=base_wigth/2,
+                        padding=padding.only(top=60),
+                        alignment=alignment.center,
+                        content=Image(
+                            src='assets/images/animated_ball_loading.gif',
+                        )
+                    ),
+                    Container(
+                        padding=padding.only(top=365),
+                        content=self.startpage_elements
+                    ),
+                ]
+            ),
+            animate=animation.Animation(1000, 'bounceInOut')
+
+        )
