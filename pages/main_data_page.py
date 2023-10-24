@@ -1,6 +1,4 @@
-import flet as ft
 from utils.extras import *
-
 
 class MainDataPage(Container):
     def __init__(self):
@@ -15,7 +13,7 @@ class MainDataPage(Container):
             # контейнер всего содержимого
             height=base_height,
             width=base_wigth,
-            bgcolor=base_color,
+            bgcolor=base_bg_color,
             content=Stack(
                 controls=[
                     # Container(
@@ -41,8 +39,16 @@ class MainDataPage(Container):
                         padding=padding.only(top=365),
                         content=self.startpage_elements
                     ),
+                    Container(
+                        bgcolor="GREY",
+                        content=TextField(
+                            height=70,
+                            max_length=4,
+                            counter_style=TextStyle(size=0)
+                        )
+                    )
                 ]
             ),
-            animate=animation.Animation(1000, 'bounceInOut')
+
 
         )

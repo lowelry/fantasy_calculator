@@ -1,8 +1,7 @@
-# from flet import *
 from utils.extras import *
 from pages.login_page import LogInPage
 from pages.main_data_page import MainDataPage
-from service.validation import *
+from services.validation import *
 
 
 class WindowDrag(UserControl):
@@ -55,6 +54,8 @@ class App(UserControl):
     def validate_inputs(self, e):
         # валидация ввода ID
         self.login_page.input_leagueid.content.value = is_valid_input_str(self.login_page.input_leagueid.content.value)
+        self.login_page.input_leagueyr.content.focused_border_color = positive_color
+        self.login_page.input_leagueid.content.focused_border_color = positive_color
         self.login_page.update()
 
         # валидация ввода года
@@ -64,8 +65,39 @@ class App(UserControl):
     def show_btn_click(self, e):
         inputid = self.login_page.input_leagueid.content.value
         inputyr = self.login_page.input_leagueyr.content.value
-        self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)
-        self.login_page.update()
+        self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+        if print_data_from_inputs(inputid, inputyr)[0] == "Please enter correct year":
+            self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+            self.login_page.input_leagueyr.content.focused_border_color = negative_color
+            self.login_page.update()
+            self.login_page.input_leagueyr.content.focus()
+        elif print_data_from_inputs(inputid, inputyr)[0] == "Please enter correct league ID":
+            self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+            self.login_page.input_leagueid.content.focused_border_color = negative_color
+            self.login_page.update()
+            self.login_page.input_leagueid.content.focus()
+        elif print_data_from_inputs(inputid, inputyr)[0] == "It seems that access to viewing this league is limited":
+            self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+            self.login_page.input_leagueyr.content.focused_border_color = self.login_page.input_leagueid.content.\
+                focused_border_color = positive_color
+            self.login_page.update()
+        elif print_data_from_inputs(inputid, inputyr)[0] == ("I can't find a league with that ID for this year\nPlease "
+                                                             "check your data and try again"):
+            self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+            self.login_page.input_leagueyr.content.focused_border_color = self.login_page.input_leagueid.content.\
+                focused_border_color = positive_color
+            self.login_page.update()
+        elif print_data_from_inputs(inputid, inputyr)[0] == ("Something went wrong\nPlease contact me "
+                                                             "https://t.me/lowbylow"):
+            self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+            self.login_page.input_leagueyr.content.focused_border_color = self.login_page.input_leagueid.content.\
+                focused_border_color = positive_color
+            self.login_page.update()
+        else:
+            self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+            self.login_page.input_leagueyr.content.focused_border_color = self.login_page.input_leagueid.content.\
+                focused_border_color = positive_color
+            self.login_page.update()
 
     def init_helper(self):
         self.pg.add(

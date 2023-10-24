@@ -1,4 +1,3 @@
-import flet as ft
 from utils.extras import *
 
 
@@ -10,67 +9,64 @@ class LogInPage(Container):
         self.validate_inputs = validate_inputs
         self.show_btn_click = show_btn_click
 
-        self.input_leagueyr = Container(
-            # поле года лиги
-            height=start_input_height,
-            width=start_input_wigth,
-            border_radius=10,
-            border=border.all(0.1),
-            bgcolor=base_color,
-            shadow=BoxShadow(
-                offset=Offset(2, 2),
-                blur_style=ShadowBlurStyle.INNER,
-                blur_radius=50
-            ),
-            content=ft.TextField(
-                max_length=4,
-                counter_text=' ',
-                hint_text='LEAGUE YR',
+        self.input_leagueid = Container(
+            # поле номера лиги
+            content=TextField(
+                height=start_input_height,
+                width=start_input_wigth,
+                max_length=10,
+                counter_text="",
+                counter_style=TextStyle(size=0),
+                hint_text='LEAGUE ID',
+                bgcolor=base_bg_color,
+                border=InputBorder.OUTLINE,
+                border_radius=10,
+                border_width=0.5,
+                focused_border_color=positive_color,
+                focused_border_width=2.5,
+                focused_bgcolor=base_bg_color,
                 text_align=TextAlign.CENTER,
                 hint_style=TextStyle(
-                    size=12,
+                    size=17,
                     color=input_hint_color,
                     weight=FontWeight.NORMAL,
                 ),
                 text_style=TextStyle(
-                    size=12,
+                    size=18,
                     color=input_hint_color
                 ),
-                border=InputBorder.NONE,
-                focused_border_color=start_btn_color,
-                content_padding=padding.only(top=26),
+                tooltip="espn basketball\nfantasy 10-digits\nleagues number",
                 on_change=self.validate_inputs
             )
         )
 
-        self.input_leagueid = Container(
-            # поле номера лиги
-            height=start_input_height,
-            width=start_input_wigth,
-            border_radius=10,
-            border=border.all(0.1),
-            bgcolor=base_color,
-            shadow=BoxShadow(
-                offset=Offset(2, 2),
-                blur_style=ShadowBlurStyle.INNER,
-                blur_radius=50
-            ),
-            content=ft.TextField(
-                max_length=10,
-                counter_text=' ',
-                hint_text='LEAGUE ID',
+        self.input_leagueyr = Container(
+            # поле года лиги
+            content=TextField(
+                height=start_input_height,
+                width=start_input_wigth,
+                max_length=4,
+                counter_text="",
+                counter_style=TextStyle(size=0),
+                hint_text='LEAGUE YR',
+                bgcolor=base_bg_color,
+                border=InputBorder.OUTLINE,
+                border_radius=10,
+                border_width=0.5,
+                focused_border_color=positive_color,
+                focused_border_width=2.5,
+                focused_bgcolor=base_bg_color,
                 text_align=TextAlign.CENTER,
                 hint_style=TextStyle(
-                    size=12,
+                    size=18,
                     color=input_hint_color,
                     weight=FontWeight.NORMAL,
                 ),
                 text_style=TextStyle(
-                    size=12,
+                    size=18,
                     color=input_hint_color
                 ),
-                border=InputBorder.NONE,
-                content_padding=padding.only(top=26),
+                tooltip='league year: 20xx',
                 on_change=self.validate_inputs
             )
         )
@@ -79,21 +75,16 @@ class LogInPage(Container):
             # кнопка шоу
             content=Text(
                 value='SHOW',
-                size=12,
+                size=18,
                 color=input_hint_color,
                 weight=FontWeight.NORMAL
             ),
             height=btn_height,
             width=btn_wigth,
-            bgcolor=start_btn_color,
-            border=border.all(0.1),
+            bgcolor=positive_color,
             border_radius=10,
+
             alignment=alignment.center,
-            shadow=BoxShadow(
-                offset=Offset(2, 2),
-                blur_style=ShadowBlurStyle.INNER,
-                blur_radius=50
-            ),
             on_click=self.show_btn_click
         )
 
@@ -113,7 +104,8 @@ class LogInPage(Container):
         )
 
         self.loginpage_elements = Column(
-             controls=[
+            # колонна основных элемнтов страницы
+            controls=[
                 Row(
                     # строка с номером и годом лиги
                     alignment=MainAxisAlignment.SPACE_EVENLY,
@@ -136,22 +128,25 @@ class LogInPage(Container):
                         Container(
                             # чекбокс запонимания лиги на следующую сессию
                             height=30,
-                            width=220,
+                            width=230,
                             alignment=alignment.top_left,
-                            padding=padding.only(left=-34, top=-12),
+                            padding=padding.only(left=-37, top=-2),
+                            # bgcolor="GREY",
                             content=Checkbox(
                                 scale=0.8,
                                 value=False,
                                 label="Save for the next session",
-                                fill_color={ft.MaterialState.HOVERED: start_btn_color},
+                                fill_color={MaterialState.HOVERED: positive_color},
                                 on_change=lambda e: print("it`s click, but it`s not clack")
                             ),
                         ),
                         Container(
                             # ссылка на очистку полей ввода
                             height=30,
-                            width=120,
+                            width=130,
+                            # bgcolor="GREY",
                             alignment=alignment.top_right,
+                            padding=padding.only(top=6),
                             content=Text(
                                 size=14.5,
                                 weight=FontWeight.NORMAL,
@@ -168,22 +163,24 @@ class LogInPage(Container):
                     ]
                 ),
                 Row(
+                    # строка сообщений о ошибках
                     alignment=MainAxisAlignment.SPACE_EVENLY,
                     controls=[
                         self.error_field
                     ]
                 )
-             ]
+            ]
         )
 
         self.content = Container(
-        # контейнер всего содержимого
+            # контейнер всего содержимого страницы
             height=base_height,
             width=base_wigth,
-            bgcolor=base_color,
+            bgcolor=base_bg_color,
             content=Stack(
                 controls=[
                     Container(
+                        # основное лого
                         height=base_height,
                         width=base_wigth,
                         padding=padding.only(top=60),
@@ -203,10 +200,10 @@ class LogInPage(Container):
                     #     )
                     # ),
                     Container(
-                        padding=padding.only(top=365),
+                        # основные жлементы страницы
+                        padding=padding.only(top=385),
                         content=self.loginpage_elements
                     ),
-
                 ]
             ),
         )
