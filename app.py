@@ -98,6 +98,12 @@ class App(UserControl):
             self.login_page.input_leagueyr.content.focused_border_color = self.login_page.input_leagueid.content.\
                 focused_border_color = positive_color
             self.login_page.update()
+            if self.login_page.chk_save_bx.content.value:
+                with open("assets/data_files/league_login_data_save.txt", "w") as file:
+                    file.write(inputid)
+            else:
+                with open("assets/data_files/league_login_data_save.txt", "w") as file:
+                    file.write("")
 
     def init_helper(self):
         self.pg.add(

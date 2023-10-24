@@ -88,6 +88,22 @@ class LogInPage(Container):
             on_click=self.show_btn_click
         )
 
+        self.chk_save_bx = Container(
+            # чекбокс запонимания лиги на следующую сессию
+            height=30,
+            width=230,
+            alignment=alignment.top_left,
+            padding=padding.only(left=-37, top=-2),
+            # bgcolor="GREY",
+            content=Checkbox(
+                scale=0.8,
+                value=False,
+                label="Save for the next session",
+                fill_color={MaterialState.HOVERED: positive_color},
+                # on_change=lambda e: print("it`s click, but it`s not clack")
+            ),
+        )
+
         self.error_field = Container(
             # строка с сообщением об ошибке входа
             content=Text(
@@ -125,21 +141,7 @@ class LogInPage(Container):
                     # строка с чекбоксом и ссылкой на очистку
                     alignment=MainAxisAlignment.SPACE_EVENLY,
                     controls=[
-                        Container(
-                            # чекбокс запонимания лиги на следующую сессию
-                            height=30,
-                            width=230,
-                            alignment=alignment.top_left,
-                            padding=padding.only(left=-37, top=-2),
-                            # bgcolor="GREY",
-                            content=Checkbox(
-                                scale=0.8,
-                                value=False,
-                                label="Save for the next session",
-                                fill_color={MaterialState.HOVERED: positive_color},
-                                on_change=lambda e: print("it`s click, but it`s not clack")
-                            ),
-                        ),
+                        self.chk_save_bx,
                         Container(
                             # ссылка на очистку полей ввода
                             height=30,
