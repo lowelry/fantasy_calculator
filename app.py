@@ -52,7 +52,10 @@ class App(UserControl):
     #     self.screen_views.controls = [self.main_data_page]
 
     def validate_inputs(self, e):
-        # валидация ввода ID
+
+        # проверяем валидацию полей ввода при каждом новом символе функцией is_valid_input_str, после изменения
+        # устанавливаем бордер под фокусом в синий, обновляем страницу
+
         self.login_page.input_leagueid.content.value = is_valid_input_str(self.login_page.input_leagueid.content.value)
         self.login_page.input_leagueyr.content.value = is_valid_input_str(self.login_page.input_leagueyr.content.value)
         self.login_page.input_leagueyr.content.focused_border_color = self.login_page.input_leagueid.content.\
