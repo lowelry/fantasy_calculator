@@ -1,6 +1,17 @@
 from utils.extras import *
 
 
+def chk_previous_session_login_data():
+    pre_log_data = ["", "", False]
+    with open("assets/data_files/league_login_data_save.txt", "r") as file:
+        previous_login_data = file.read()
+    if previous_login_data != "":
+        pre_log_data = [previous_login_data[:10], previous_login_data[10:14], True]
+        return pre_log_data
+    else:
+        return pre_log_data
+
+
 class LogInPage(Container):
     def __init__(self, validate_inputs, show_btn_click):
         super().__init__()
@@ -12,6 +23,7 @@ class LogInPage(Container):
         self.input_leagueid = Container(
             # поле номера лиги
             content=TextField(
+                value=chk_previous_session_login_data()[0],
                 height=start_input_height,
                 width=start_input_wigth,
                 max_length=10,
@@ -43,6 +55,7 @@ class LogInPage(Container):
         self.input_leagueyr = Container(
             # поле года лиги
             content=TextField(
+                value=chk_previous_session_login_data()[1],
                 height=start_input_height,
                 width=start_input_wigth,
                 max_length=4,
@@ -97,11 +110,31 @@ class LogInPage(Container):
             # bgcolor="GREY",
             content=Checkbox(
                 scale=0.8,
-                value=False,
+                value=chk_previous_session_login_data()[2],
                 label="Save for the next session",
                 fill_color={MaterialState.HOVERED: positive_color},
-                # on_change=lambda e: print("it`s click, but it`s not clack")
             ),
+        )
+
+        self.anothe_league_link = Container(
+            # ссылка на очистку полей
+            height=30,
+            width=130,
+            # bgcolor="GREY",
+            alignment=alignment.top_right,
+            padding=padding.only(top=6),
+            content=Text(
+                size=14.5,
+                weight=FontWeight.NORMAL,
+                font_family="Sansation",
+                spans=[
+                    TextSpan(
+                        style=TextStyle(decoration=TextDecoration.UNDERLINE),
+                        text="Another League",
+                        on_click=lambda e: self.show_btn_click(self, 1)
+                    )
+                ]
+            )
         )
 
         self.error_field = Container(
@@ -142,26 +175,7 @@ class LogInPage(Container):
                     alignment=MainAxisAlignment.SPACE_EVENLY,
                     controls=[
                         self.chk_save_bx,
-                        Container(
-                            # ссылка на очистку полей ввода
-                            height=30,
-                            width=130,
-                            # bgcolor="GREY",
-                            alignment=alignment.top_right,
-                            padding=padding.only(top=6),
-                            content=Text(
-                                size=14.5,
-                                weight=FontWeight.NORMAL,
-                                font_family="Sansation",
-                                spans=[
-                                    TextSpan(
-                                        style=TextStyle(decoration=TextDecoration.UNDERLINE),
-                                        text="Another League",
-                                        url='https://www.google.com/search?q=google'
-                                    )
-                                ]
-                            )
-                        )
+                        self.anothe_league_link
                     ]
                 ),
                 Row(

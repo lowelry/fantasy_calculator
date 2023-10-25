@@ -1,12 +1,10 @@
 # получение данных api
 from espn_api.basketball import League  # инпортируем класс лиги
-league = League(league_id=1013716421, year=2023)    # выполняем вход в конкретную лигу
+league = League(league_id=1013716421, year=2024)    # выполняем вход в конкретную лигу
 
 # интерфейс
 from tkinter import *
 from tkinter import ttk
-
-# изменени для коммита по неотправке датафайла
 
 root = Tk()
 root.title("ЛББП")
