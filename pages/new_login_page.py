@@ -26,7 +26,7 @@ class LogInPage(Container):
             content=IconButton(
                 icon=icons.CLOSE,
                 icon_color=positive_color,
-                icon_size=40,
+                icon_size=icons_size,
                 tooltip="close app",
                 on_click=close_btn_click
             )

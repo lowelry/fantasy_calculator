@@ -21,6 +21,7 @@ class App(UserControl):
         pg.window_title_bar_buttons_hidden = True
         pg.bgcolor = colors.TRANSPARENT
         pg.window_bgcolor = colors.TRANSPARENT
+        pg.window_resizable = False
         pg.window_width = base_window_wigth
         pg.window_height = base_window_height
         pg.theme_mode = "Light"

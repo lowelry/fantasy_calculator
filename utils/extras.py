@@ -1,3 +1,4 @@
+import flet as ft
 from flet import *
 
 base_window_height = 710
@@ -13,6 +14,8 @@ inputs_top_offset = 60
 
 btn_height = 75
 btn_wigth = 425
+
+icons_size = 40
 
 input_hint_color = '#2A324B'
 positive_color = '#64CCDA'
