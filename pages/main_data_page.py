@@ -11,14 +11,14 @@ class MainDataPage(Container):
 
         self.content = Container(
             # контейнер всего содержимого
-            height=base_height,
-            width=base_wigth,
+            height=base_window_height,
+            width=base_window_wigth,
             bgcolor=base_bg_color,
             content=Stack(
                 controls=[
                     # Container(
                     #     height=base_height,
-                    #     width=base_wigth,
+                    #     width=base_window_wigth,
                     #     padding=padding.only(top=60),
                     #     alignment=alignment.top_center,
                     #     content=Image(
@@ -27,8 +27,8 @@ class MainDataPage(Container):
                     # ),
                     Container(
                         offset=(0.5, 0),
-                        height=base_height,
-                        width=base_wigth/2,
+                        height=base_window_height,
+                        width=base_window_wigth / 2,
                         padding=padding.only(top=60),
                         alignment=alignment.center,
                         content=Image(

@@ -20,8 +20,19 @@ class LogInPage(Container):
         self.validate_inputs = validate_inputs
         self.show_btn_click = show_btn_click
 
+        self.espn_logo = Container(
+            # основное лого
+            width=espn_logo_wigth,
+            padding=padding.only(top=espn_logo_top_offset),
+            alignment=alignment.center,
+            content=Image(
+                src='assets/images/espn_fantasy_basketball_logo-1.jpg',
+            )
+        )
+
         self.input_leagueid = Container(
             # поле номера лиги
+            padding=padding.only(top=inputs_top_offset),
             content=TextField(
                 value=chk_previous_session_login_data()[0],
                 height=inputs_height,
@@ -39,7 +50,7 @@ class LogInPage(Container):
                 focused_bgcolor=base_bg_color,
                 text_align=TextAlign.CENTER,
                 hint_style=TextStyle(
-                    size=17,
+                    size=18,
                     color=input_hint_color,
                     weight=FontWeight.NORMAL,
                 ),
@@ -54,6 +65,7 @@ class LogInPage(Container):
 
         self.input_leagueyr = Container(
             # поле года лиги
+            padding=padding.only(top=inputs_top_offset),
             content=TextField(
                 value=chk_previous_session_login_data()[1],
                 height=inputs_height,
@@ -152,78 +164,50 @@ class LogInPage(Container):
             alignment=alignment.center
         )
 
-        self.loginpage_elements = Column(
-            # alignment=alignment.center,
-            # колонна основных элемнтов страницы
-            controls=[
-                Container(
-                    # основное лого
-                    # height=base_height,
-                    width=485,
-                    # padding=padding.only(top=60),
-                    # alignment=alignment.center,
-                    content=Image(
-                        src='assets/images/espn_fantasy_basketball_logo-1.jpg',
-                    )
-                ),
-                Row(
-                    # строка с номером и годом лиги
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.input_leagueid,
-                        self.input_leagueyr
-                    ]
-                ),
-                Row(
-                    # строка с кнопкой шоу
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.show_btn
-                    ]
-                ),
-                Row(
-                    # строка с чекбоксом и ссылкой на очистку
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.chk_save_bx,
-                        self.anothe_league_link
-                    ]
-                ),
-                Row(
-                    # строка сообщений о ошибках
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.error_field
-                    ]
-                )
-            ]
+        self.loading_animation = Container(
+            # анимация загрузки
+            height=base_window_height,
+            width=btn_wigth,
+            padding=padding.only(top=60),
+            content=Image(
+                src='assets/images/animated_ball_loading.gif',
+            )
+        )
+
+        self.loginpage_elements = Container(
+            # контейнер содержимого страницы
+            content=Column(
+                controls=[
+                    self.espn_logo,
+                    Row(
+                        # строка с номером и годом лиги
+                        width=espn_logo_wigth,
+                        alignment=MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            self.input_leagueid,
+                            self.input_leagueyr
+                        ]
+                    ),
+                    self.show_btn,
+                    Row(
+                        # строка с чекбоксом и ссылкой
+                        width=espn_logo_wigth,
+                        alignment=MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            self.chk_save_bx,
+                            self.anothe_league_link
+                        ]
+                    ),
+                    self.error_field
+                ]
+            )
         )
 
         self.content = Container(
-            # контейнер всего содержимого страницы
-            height=base_height,
+            # базовый контейнер страницы
+            height=base_window_height,
             width=base_window_wigth,
             bgcolor=base_bg_color,
             alignment=alignment.center,
-
-            content=Stack(
-                controls=[
-
-                    # Container(
-                    #     # height=base_height,
-                    #     width=485,
-                    #     padding=padding.only(top=60),
-                    #
-                    #     content=Image(
-                    #         src='assets/images/animated_ball_loading.gif',
-                    #     )
-                    # ),
-                    Container(
-                        # bgcolor="GREY",
-                        # основные жлементы страницы
-                        # padding=padding.only(top=385),
-                        content=self.loginpage_elements
-                    ),
-                ]
-            ),
+            content=self.loginpage_elements
         )

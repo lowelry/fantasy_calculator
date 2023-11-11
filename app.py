@@ -1,5 +1,5 @@
 from utils.extras import *
-from pages.login_page import LogInPage
+from pages.new_login_page import LogInPage
 from pages.main_data_page import MainDataPage
 from services.validation import *
 
@@ -21,8 +21,8 @@ class App(UserControl):
         pg.window_title_bar_buttons_hidden = True
         pg.bgcolor = colors.TRANSPARENT
         pg.window_bgcolor = colors.TRANSPARENT
-        pg.window_width = base_wigth
-        pg.window_height = base_height
+        pg.window_width = base_window_wigth
+        pg.window_height = base_window_height
         pg.theme_mode = "Light"
         pg.fonts = {
             "Sansation": "https://github.com/google/fonts/raw/990be3ed8f77e31c26bf07b148d6a74b8e6241cf/ofl/sansation/"
