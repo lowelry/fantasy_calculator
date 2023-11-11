@@ -177,10 +177,9 @@ class LogInPage(Container):
         )
 
         self.loading_animation = Container(
-            # анимация загрузки
-            height=base_window_height,
+            # gif-анимация загрузки
             width=btn_wigth,
-            padding=padding.only(top=60),
+            padding=padding.only(top=110),
             content=Image(
                 src='assets/images/animated_ball_loading.gif',
             )
@@ -215,6 +214,15 @@ class LogInPage(Container):
             )
         )
 
+        self.trasfer_from_login_to_animation = ft.AnimatedSwitcher(
+            # анимация перехода от статичных полей к анимации загрузки запроса
+            self.login_elements,
+            transition=ft.AnimatedSwitcherTransition.SCALE,
+            duration=5500,
+            switch_in_curve=ft.AnimationCurve.EASE_IN,
+            switch_out_curve=ft.AnimationCurve.EASE_OUT,
+        )
+
         self.content = Container(
             # базовый контейнер страницы
             height=base_window_height,
@@ -229,7 +237,7 @@ class LogInPage(Container):
                         alignment=alignment.top_right
                     ),
                     Container(
-                        self.login_elements,
+                        self.trasfer_from_login_to_animation,
                         alignment=alignment.center
                     ),
                 ]

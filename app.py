@@ -135,6 +135,8 @@ class App(UserControl):
                 # установлен чекбокс на сохранение введенных данных для следующей сессии:
                 # *если value чекбокса == True - перезаписываем данные полей в файл
                 # *если value чекбокса == False - перезаписываем в файл пустую строку
+                if self.login_page.trasfer_from_login_to_animation.content == self.login_page.login_elements:
+                    self.login_page.trasfer_from_login_to_animation.content = self.login_page.loading_animation
 
                 self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
                 self.login_page.update()
