@@ -178,6 +178,7 @@ class LogInPage(Container):
 
         self.loading_animation = Container(
             # gif-анимация загрузки
+            height=gif_loading_animation_offset,
             width=btn_wigth,
             padding=padding.only(top=110),
             content=Image(
@@ -209,7 +210,6 @@ class LogInPage(Container):
                             self.anothe_league_link
                         ]
                     ),
-                    self.error_field,
                 ]
             )
         )
@@ -240,6 +240,11 @@ class LogInPage(Container):
                         self.trasfer_from_login_to_animation,
                         alignment=alignment.center
                     ),
+                    Container(
+                        self.error_field,
+                        alignment=alignment.bottom_center,
+                        padding=padding.only(bottom=error_field_offset)
+                    )
                 ]
             )
         )

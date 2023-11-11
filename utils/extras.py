@@ -17,6 +17,10 @@ btn_wigth = 425
 
 icons_size = 40
 
+gif_loading_animation_offset = 505
+
+error_field_offset = 15
+
 input_hint_color = '#2A324B'
 positive_color = '#64CCDA'
 negative_color = "#E462A8"

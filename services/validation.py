@@ -19,7 +19,7 @@ def print_data_from_inputs(inputid, inputyr):
             try:
                 league = League(league_id=int(inputid), year=int(inputyr))
                 team0name = re.search(r'\((.*?)\)', str(league.teams[0])).group(1)
-                validation_data = [f"{team0name}", f"{positive_color}"]
+                validation_data = ["reviewing moments, recounting numbers", f"{positive_color}"]
                 return validation_data
             except ESPNAccessDenied:
                 validation_data = ["It seems that access to viewing this league is limited", f"{positive_color}"]
