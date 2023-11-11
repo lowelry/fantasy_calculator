@@ -201,7 +201,7 @@ class LogInPage(Container):
 
         self.content = Container(
             # контейнер всего содержимого страницы
-            height=base_height,
+            height=base_window_height,
             width=base_window_wigth,
             bgcolor=base_bg_color,
             alignment=alignment.center,

@@ -13,12 +13,24 @@ def chk_previous_session_login_data():
 
 
 class LogInPage(Container):
-    def __init__(self, validate_inputs, show_btn_click):
+    def __init__(self, validate_inputs, show_btn_click, close_btn_click):
         super().__init__()
         self.expand = True
         self.offset = transform.Offset(0, 0)
         self.validate_inputs = validate_inputs
         self.show_btn_click = show_btn_click
+        self.close_btn_click = close_btn_click
+
+        self.close_btn = Container(
+            # кнопка закрытия приложения
+            content=IconButton(
+                icon=icons.CLOSE,
+                icon_color=positive_color,
+                icon_size=40,
+                tooltip="close app",
+                on_click=close_btn_click
+            )
+        )
 
         self.espn_logo = Container(
             # основное лого
@@ -58,7 +70,7 @@ class LogInPage(Container):
                     size=18,
                     color=input_hint_color
                 ),
-                tooltip="espn basketball\nfantasy 10-digits\nleagues number",
+                tooltip="10-digits league's number in ESPN fantasy",
                 on_change=self.validate_inputs
             )
         )
@@ -118,7 +130,7 @@ class LogInPage(Container):
             height=30,
             width=230,
             alignment=alignment.top_left,
-            padding=padding.only(left=-37, top=-2),
+            padding=padding.only(left=-35, top=-2),
             # bgcolor="GREY",
             content=Checkbox(
                 scale=0.8,
@@ -174,7 +186,7 @@ class LogInPage(Container):
             )
         )
 
-        self.loginpage_elements = Container(
+        self.login_elements = Container(
             # контейнер содержимого страницы
             content=Column(
                 controls=[
@@ -198,7 +210,7 @@ class LogInPage(Container):
                             self.anothe_league_link
                         ]
                     ),
-                    self.error_field
+                    self.error_field,
                 ]
             )
         )
@@ -209,5 +221,17 @@ class LogInPage(Container):
             width=base_window_wigth,
             bgcolor=base_bg_color,
             alignment=alignment.center,
-            content=self.loginpage_elements
+            content=Column(
+                controls=[
+                    Container(
+                        self.close_btn,
+                        padding=padding.only(right=30),
+                        alignment=alignment.top_right
+                    ),
+                    Container(
+                        self.login_elements,
+                        alignment=alignment.center
+                    ),
+                ]
+            )
         )

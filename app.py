@@ -10,7 +10,7 @@ class WindowDrag(UserControl):
         # self.color = color
 
     def build(self):
-        return Container(content=WindowDragArea(height=10, content=Container(bgcolor=colors.TRANSPARENT)))
+        return Container(content=WindowDragArea(height=30, content=Container(bgcolor=base_bg_color)))
 
 
 class App(UserControl):
@@ -33,7 +33,7 @@ class App(UserControl):
 
         self.pg = pg
         self.pg.spacing = 0
-        self.login_page = LogInPage(self.validate_inputs, self.show_btn_click)
+        self.login_page = LogInPage(self.validate_inputs, self.show_btn_click, self.close_btn_click)
         self.main_data_page = MainDataPage()
         self.screen_views = Stack(
             controls=[
@@ -42,14 +42,6 @@ class App(UserControl):
             ]
         )
         self.init_helper()
-
-    # def switch_to_main_data_page(self):
-    #     # Измените размер окна
-    #     self.pg.window_width = self.pg.window_width * 2  # Увеличьте ширину вдвое
-    #     self.pg.window_height = new_height  # Здесь укажите новую высоту окна
-    #
-    #     # Замените текущее содержимое на main_data_page
-    #     self.screen_views.controls = [self.main_data_page]
 
     def validate_inputs(self, e):
 
@@ -61,6 +53,9 @@ class App(UserControl):
         self.login_page.input_leagueyr.content.focused_border_color = self.login_page.input_leagueid.content.\
             focused_border_color = positive_color
         self.login_page.update()
+
+    def close_btn_click(self, e):
+        self.pg.window_destroy()
 
     def show_btn_click(self, e, another_league_flag=0):
 
