@@ -35,7 +35,7 @@ class App(UserControl):
         self.pg = pg
         self.pg.spacing = 0
         self.login_page = LogInPage(self.validate_inputs, self.show_btn_click, self.close_btn_click)
-        self.main_data_page = MainDataPage()
+        self.main_data_page = MainDataPage(self.show_btn_click, self.close_btn_click)
         self.screen_views = Stack(
             controls=[
                 self.login_page,
@@ -76,56 +76,56 @@ class App(UserControl):
 
             inputid = self.login_page.input_leagueid.content.value
             inputyr = self.login_page.input_leagueyr.content.value
-
+            validation_result = print_data_from_inputs(inputid, inputyr)
             # проверяем итоговую валидацию полей "print_data_from_inputs"
 
-            if print_data_from_inputs(inputid, inputyr)[0] == "Please enter correct year":
+            if validation_result[0] == "Please enter correct year":
 
                 # если текстовый результат - ошибка количества символов в поле года, то выводим кастомное сообщение об
                 # ошибке, устанавливаем цвет бордера поля под фокусом в красный, обновляем страницу, наводим фокус на
                 # поле
 
-                self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+                self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.input_leagueyr.content.focused_border_color = negative_color
                 self.login_page.update()
                 self.login_page.input_leagueyr.content.focus()
 
-            elif print_data_from_inputs(inputid, inputyr)[0] == "Please enter correct league ID":
+            elif validation_result[0] == "Please enter correct league ID":
 
                 # если текстовый результат - ошибка количества символов в поле id, то выводим кастомное сообщение об
                 # ошибке, устанавливаем цвет бордера поля под фокусом в красный, обновляем страницу, наводим фокус на
                 # поле
 
-                self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+                self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.input_leagueid.content.focused_border_color = negative_color
                 self.login_page.update()
                 self.login_page.input_leagueid.content.focus()
 
-            elif print_data_from_inputs(inputid, inputyr)[0] == ("It seems that access to viewing this league is "
+            elif validation_result[0] == ("It seems that access to viewing this league is "
                                                                  "limited"):
 
                 # если текстовый результат - ошибка прав на получение данных (ошибка запроса 401), то выводим
                 # кастомное сообщение об ошибке, обновляем страницу
 
-                self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+                self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.update()
 
-            elif print_data_from_inputs(inputid, inputyr)[0] == ("I can't find a league with that ID for this "
+            elif validation_result[0] == ("I can't find a league with that ID for this "
                                                                  "year\nPlease check your data and try again"):
 
                 # если текстовый результат - ошибка лига с такими данными не существует (ошибка запроса 404), то
                 # выводим кастомное сообщение об ошибке, обновляем страницу
 
-                self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+                self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.update()
 
-            elif print_data_from_inputs(inputid, inputyr)[0] == ("Something went wrong\nPlease contact me "
+            elif validation_result[0] == ("Something went wrong\nPlease contact me "
                                                                  "https://t.me/lowbylow"):
 
                 # если текстовый результат - неизвестная ошибка (ошибка запроса не равная 200, 401, 404), то
                 # выводим кастомное сообщение об ошибке, обновляем страницу
 
-                self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+                self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.update()
 
             else:
@@ -138,7 +138,7 @@ class App(UserControl):
                 if self.login_page.trasfer_from_login_to_animation.content == self.login_page.login_elements:
                     self.login_page.trasfer_from_login_to_animation.content = self.login_page.loading_animation
 
-                self.login_page.error_field.content.value = print_data_from_inputs(inputid, inputyr)[0]
+                self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.update()
                 if self.login_page.chk_save_bx.content.value:
                     with open("assets/data_files/league_login_data_save.txt", "w") as file:
