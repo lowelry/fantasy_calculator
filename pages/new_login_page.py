@@ -120,7 +120,6 @@ class LogInPage(Container):
             width=btn_wigth,
             bgcolor=positive_color,
             border_radius=10,
-
             alignment=alignment.center,
             on_click=self.show_btn_click
         )
@@ -166,7 +165,7 @@ class LogInPage(Container):
             content=Text(
                 value='',
                 size=12,
-                color="#ff9600",
+                # color="#ff9600",
                 weight=FontWeight.NORMAL,
                 text_align=TextAlign.CENTER,
                 selectable=True

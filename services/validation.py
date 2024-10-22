@@ -19,7 +19,7 @@ def print_data_from_inputs(inputid, inputyr):
             try:
                 league = League(league_id=int(inputid), year=int(inputyr))
                 print(str(league.teams))
-                validation_data = ["reviewing moments, recounting numbers", f"{positive_color}", league]
+                validation_data = ["Reviewing moments... Recounting numbers...", f"{positive_color}", league]
                 return validation_data
             except ESPNAccessDenied:
                 validation_data = ["It seems that access to viewing this league is limited", f"{positive_color}"]

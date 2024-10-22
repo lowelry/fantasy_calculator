@@ -1,12 +1,27 @@
 from utils.extras import *
 from espn_api.basketball import League
 
-league = League(league_id=1013716421, year=2024)
+league = League(league_id=1013716421, year=2025)
 # следующая строка превращает сырые данные со списком команд в лиге в список только названий всех команд в лиге
 teams_title_list = list((((" ".join(map(str, league.teams))).replace("Team(", "")).replace(")", ".")).split(". "))
 # следующая строка превращает список только названий команд в лиге в набор опций для
 # dropdown -> одна команда - одна опция
 options_list = [ft.dropdown.Option(option) for option in teams_title_list]
+
+
+team_number = 0
+players_names_list = list((",".join(map(str, league.teams[team_number].roster))).replace("Player(", "")
+                          .replace(")", "").split(","))
+
+
+def player_status(name_number):
+    player_injury_status = league.teams[team_number].roster[name_number].injuryStatus.lower()
+    return player_injury_status
+
+
+def player_avr(name_number):
+    player_avr_number = league.teams[team_number].roster[name_number].avg_points
+    return player_avr_number
 
 
 class MainDataPage(Container):
@@ -15,7 +30,6 @@ class MainDataPage(Container):
         self.expand = True
         self.offset = transform.Offset(0, 0)
 
-        print(show_btn_click)
         self.close_btn = Container(
             # кнопка закрытия приложения
             content=IconButton(
@@ -54,7 +68,8 @@ class MainDataPage(Container):
                 # в данный момент список названий команд берется из запроса с предустановленными данными перед
                 # формированием страницы, в дальнейшем, когда будет сделан переход между страницами, этот список будет
                 # браться из show_btn_click
-                options=options_list
+                options=options_list,
+                # on_change=self.team_dropdown_update
             )
         )
 
@@ -79,97 +94,312 @@ class MainDataPage(Container):
                     ),
                     Container(
                         alignment=alignment.center,
-                        content=
-                        # ft.DataTable(
-                        #     width=700,
-                        #     bgcolor="yellow",
-                        #     border=ft.border.all(2, "red"),
-                        #     border_radius=10,
-                        #     vertical_lines=ft.border.BorderSide(3, "blue"),
-                        #     horizontal_lines=ft.border.BorderSide(1, "green"),
-                        #     sort_column_index=0,
-                        #     sort_ascending=True,
-                        #     heading_row_color=ft.colors.BLACK12,
-                        #     heading_row_height=100,
-                        #
-                        #     show_checkbox_column=True,
-                        #     divider_thickness=0,
-                        #     column_spacing=200,
-                        #     columns=[
-                        #         ft.DataColumn(
-                        #             ft.Text("Column 1"),
-                        #             on_sort=lambda e: print(f"{e.column_index}, {e.ascending}"),
-                        #         ),
-                        #         ft.DataColumn(
-                        #             ft.Text("Column 2"),
-                        #             tooltip="This is a second column",
-                        #             # numeric=True,
-                        #             on_sort=lambda e: print(f"{e.column_index}, {e.ascending}"),
-                        #         ),
-                        #     ],
-                        #     rows=[
-                        #         ft.DataRow(
-                        #             [ft.DataCell(ft.Text("A")), ft.DataCell(ft.Text("1"))],
-                        #             # selected=True,
-                        #             on_select_changed=lambda e: print(f"row select changed: {e.data}"),
-                        #         ),
-                        #         ft.DataRow([ft.DataCell(ft.Text("B")), ft.DataCell(ft.Text("2"))]),
-                        #     ],
-                        # ),
-                        ft.DataTable(
-                            show_checkbox_column=True,
-                            columns=[
-                                ft.DataColumn(
-                                    Text('Состав'),
-                                ),
-                                ft.DataColumn(
-                                    Text('статус'),
-                                ),
-                                ft.DataColumn(
-                                    Text('AVR'),
-                                ),
-                                ft.DataColumn(
-                                    Text('Количество игр'),
-                                ),
-                                ft.DataColumn(
-                                    Text('Week AVR'),
-                                )
-                            ],
-                            rows=[
-                                DataRow(
-                                    on_select_changed=lambda e: print(f"row select changed: {e.data}"),
-                                    cells=[
-                                        DataCell(Text('Trae Young')),
-                                        DataCell(Text('active')),
-                                        DataCell(Text(7.29)),
-                                        DataCell(ft.RadioGroup(
-                                            content=Row([
-                                                ft.Radio(value="red", label="2"),
-                                                ft.Radio(value="green", label="3"),
-                                                ft.Radio(value="grey", label="4"),
-                                                ft.Radio(value="black", label="5"),
-                                            ])
-                                        )),
-                                        DataCell(Text('empty')),
-                                        DataCell(Text('empty')),
-                                    ]
-                                ),
-                                DataRow(
-                                    on_select_changed=lambda e: print(f"row select changed: {e.data}"),
-                                    cells=[
-                                        DataCell(Text('LaMelo Ball')),
-                                        DataCell(Text('active')),
-                                        DataCell(Text(7.76)),
-                                        DataCell(ft.RadioGroup(
-                                            content=Row([
-                                                ft.Radio(value="red", label="2"),
-                                                ft.Radio(value="green", label="3"),
-                                                ft.Radio(value="grey", label="4"),
-                                                ft.Radio(value="black", label="5"),
-                                            ])
-                                        )),
-                                        DataCell(Text('empty')),
-                                        DataCell(Text('empty')),
+                        content=Column(
+                            height=450,
+                            scroll=ScrollMode.ALWAYS,
+                            controls=[
+                                DataTable(
+                                    heading_text_style=TextStyle(
+                                        size=13,
+                                        color=input_hint_color,
+                                        weight=FontWeight.NORMAL,
+                                        font_family="Sansation",
+                                    ),
+                                    data_text_style=TextStyle(
+                                        size=13,
+                                        color=input_hint_color,
+                                        weight=FontWeight.NORMAL,
+                                        font_family="Sansation",
+                                    ),
+                                    show_checkbox_column=True,
+                                    columns=[
+                                        DataColumn(
+                                            Text('Состав'),
+                                        ),
+                                        DataColumn(
+                                            Text('статус'),
+                                        ),
+                                        DataColumn(
+                                            Text('AVR'),
+                                        ),
+                                        DataColumn(
+                                            Text('Количество игр'),
+                                        ),
+                                        DataColumn(
+                                            Text('Week AVR'),
+                                        )
+                                    ],
+                                    rows=[
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[0]}')),
+                                                DataCell(Text(f'{player_status(0)}')),
+                                                DataCell(Text(f'{player_avr(0)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[1]}')),
+                                                DataCell(Text(f'{player_status(1)}')),
+                                                DataCell(Text(f'{player_avr(1)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value='2', label="2"),
+                                                        Radio(value='3', label="3"),
+                                                        Radio(value='4', label="4"),
+                                                        Radio(value='5', label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[2]}')),
+                                                DataCell(Text(f'{player_status(2)}')),
+                                                DataCell(Text(f'{player_avr(2)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[3]}')),
+                                                DataCell(Text(f'{player_status(3)}')),
+                                                DataCell(Text(f'{player_avr(3)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[4]}')),
+                                                DataCell(Text(f'{player_status(4)}')),
+                                                DataCell(Text(f'{player_avr(4)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[5]}')),
+                                                DataCell(Text(f'{player_status(5)}')),
+                                                DataCell(Text(f'{player_avr(5)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[6]}')),
+                                                DataCell(Text(f'{player_status(6)}')),
+                                                DataCell(Text(f'{player_avr(6)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[7]}')),
+                                                DataCell(Text(f'{player_status(7)}')),
+                                                DataCell(Text(f'{player_avr(7)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[8]}')),
+                                                DataCell(Text(f'{player_status(8)}')),
+                                                DataCell(Text(f'{player_avr(8)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[9]}')),
+                                                DataCell(Text(f'{player_status(9)}')),
+                                                DataCell(Text(f'{player_avr(9)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[10]}')),
+                                                DataCell(Text(f'{player_status(10)}')),
+                                                DataCell(Text(f'{player_avr(10)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[11]}')),
+                                                DataCell(Text(f'{player_status(11)}')),
+                                                DataCell(Text(f'{player_avr(11)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[12]}')),
+                                                DataCell(Text(f'{player_status(12)}')),
+                                                DataCell(Text(f'{player_avr(12)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[13]}')),
+                                                DataCell(Text(f'{player_status(13)}')),
+                                                DataCell(Text(f'{player_avr(13)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
+                                        DataRow(
+                                            # on_select_changed=lambda e: print(f"row select changed: {e.data}"),
+                                            cells=[
+                                                DataCell(Text(f'{players_names_list[14]}')),
+                                                DataCell(Text(f'{player_status(14)}')),
+                                                DataCell(Text(f'{player_avr(14)}')),
+                                                DataCell(ft.RadioGroup(
+                                                    content=Row([
+                                                        Radio(value="2", label="2"),
+                                                        Radio(value="3", label="3"),
+                                                        Radio(value="4", label="4"),
+                                                        Radio(value="5", label="5"),
+                                                    ])
+                                                )),
+                                                DataCell(Text('empty')),
+                                                DataCell(Text('empty')),
+                                            ]
+                                        ),
                                     ]
                                 )
                             ]

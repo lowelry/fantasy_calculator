@@ -10,7 +10,8 @@ class WindowDrag(UserControl):
         # self.color = color
 
     def build(self):
-        return Container(content=WindowDragArea(height=30, content=Container(bgcolor=base_bg_color)))
+        return Container(content=WindowDragArea(height=30, content=Container(bgcolor=base_bg_color, border=border.only(
+            bottom=ft.border.BorderSide(0.5, "#DCDCDC")))))
 
 
 class App(UserControl):
@@ -35,7 +36,7 @@ class App(UserControl):
         self.pg = pg
         self.pg.spacing = 0
         self.login_page = LogInPage(self.validate_inputs, self.show_btn_click, self.close_btn_click)
-        self.main_data_page = MainDataPage(self.show_btn_click, self.close_btn_click)
+        # self.main_data_page = MainDataPage(self.show_btn_click, self.close_btn_click)
         self.screen_views = Stack(
             controls=[
                 self.login_page,
@@ -43,6 +44,7 @@ class App(UserControl):
             ]
         )
         self.init_helper()
+
 
     def validate_inputs(self, e):
 
@@ -101,8 +103,7 @@ class App(UserControl):
                 self.login_page.update()
                 self.login_page.input_leagueid.content.focus()
 
-            elif validation_result[0] == ("It seems that access to viewing this league is "
-                                                                 "limited"):
+            elif validation_result[0] == "It seems that access to viewing this league is limited":
 
                 # если текстовый результат - ошибка прав на получение данных (ошибка запроса 401), то выводим
                 # кастомное сообщение об ошибке, обновляем страницу
@@ -110,8 +111,8 @@ class App(UserControl):
                 self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.update()
 
-            elif validation_result[0] == ("I can't find a league with that ID for this "
-                                                                 "year\nPlease check your data and try again"):
+            elif validation_result[0] == ("I can't find a league with that ID for this year\nPlease check your data "
+                                          "and try again"):
 
                 # если текстовый результат - ошибка лига с такими данными не существует (ошибка запроса 404), то
                 # выводим кастомное сообщение об ошибке, обновляем страницу
@@ -119,8 +120,7 @@ class App(UserControl):
                 self.login_page.error_field.content.value = validation_result[0]
                 self.login_page.update()
 
-            elif validation_result[0] == ("Something went wrong\nPlease contact me "
-                                                                 "https://t.me/lowbylow"):
+            elif validation_result[0] == "Something went wrong\nPlease contact me https://t.me/lowbylow":
 
                 # если текстовый результат - неизвестная ошибка (ошибка запроса не равная 200, 401, 404), то
                 # выводим кастомное сообщение об ошибке, обновляем страницу
