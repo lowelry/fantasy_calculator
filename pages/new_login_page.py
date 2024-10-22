@@ -13,15 +13,38 @@ def chk_previous_session_login_data():
 
 
 class LogInPage(Container):
-    def __init__(self, validate_inputs, show_btn_click):
+    def __init__(self, validate_inputs, show_btn_click, close_btn_click):
         super().__init__()
         self.expand = True
         self.offset = transform.Offset(0, 0)
         self.validate_inputs = validate_inputs
         self.show_btn_click = show_btn_click
+        self.close_btn_click = close_btn_click
+
+        self.close_btn = Container(
+            # кнопка закрытия приложения
+            content=IconButton(
+                icon=icons.CLOSE,
+                icon_color=positive_color,
+                icon_size=icons_size,
+                tooltip="close app",
+                on_click=close_btn_click
+            )
+        )
+
+        self.espn_logo = Container(
+            # основное лого
+            width=espn_logo_wigth,
+            padding=padding.only(top=espn_logo_top_offset),
+            alignment=alignment.center,
+            content=Image(
+                src='assets/images/espn_fantasy_basketball_logo-1.jpg',
+            )
+        )
 
         self.input_leagueid = Container(
             # поле номера лиги
+            padding=padding.only(top=inputs_top_offset),
             content=TextField(
                 value=chk_previous_session_login_data()[0],
                 height=inputs_height,
@@ -39,7 +62,7 @@ class LogInPage(Container):
                 focused_bgcolor=base_bg_color,
                 text_align=TextAlign.CENTER,
                 hint_style=TextStyle(
-                    size=17,
+                    size=18,
                     color=input_hint_color,
                     weight=FontWeight.NORMAL,
                 ),
@@ -47,13 +70,14 @@ class LogInPage(Container):
                     size=18,
                     color=input_hint_color
                 ),
-                tooltip="espn basketball\nfantasy 10-digits\nleagues number",
+                tooltip="10-digits league's number in ESPN fantasy",
                 on_change=self.validate_inputs
             )
         )
 
         self.input_leagueyr = Container(
             # поле года лиги
+            padding=padding.only(top=inputs_top_offset),
             content=TextField(
                 value=chk_previous_session_login_data()[1],
                 height=inputs_height,
@@ -96,7 +120,6 @@ class LogInPage(Container):
             width=btn_wigth,
             bgcolor=positive_color,
             border_radius=10,
-
             alignment=alignment.center,
             on_click=self.show_btn_click
         )
@@ -106,7 +129,7 @@ class LogInPage(Container):
             height=30,
             width=230,
             alignment=alignment.top_left,
-            padding=padding.only(left=-37, top=-2),
+            padding=padding.only(left=-35, top=-2),
             # bgcolor="GREY",
             content=Checkbox(
                 scale=0.8,
@@ -142,7 +165,7 @@ class LogInPage(Container):
             content=Text(
                 value='',
                 size=12,
-                color="#ff9600",
+                # color="#ff9600",
                 weight=FontWeight.NORMAL,
                 text_align=TextAlign.CENTER,
                 selectable=True
@@ -152,78 +175,75 @@ class LogInPage(Container):
             alignment=alignment.center
         )
 
-        self.loginpage_elements = Column(
-            # alignment=alignment.center,
-            # колонна основных элемнтов страницы
-            controls=[
-                Container(
-                    # основное лого
-                    # height=base_height,
-                    width=485,
-                    # padding=padding.only(top=60),
-                    # alignment=alignment.center,
-                    content=Image(
-                        src='assets/images/espn_fantasy_basketball_logo-1.jpg',
-                    )
-                ),
-                Row(
-                    # строка с номером и годом лиги
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.input_leagueid,
-                        self.input_leagueyr
-                    ]
-                ),
-                Row(
-                    # строка с кнопкой шоу
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.show_btn
-                    ]
-                ),
-                Row(
-                    # строка с чекбоксом и ссылкой на очистку
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.chk_save_bx,
-                        self.anothe_league_link
-                    ]
-                ),
-                Row(
-                    # строка сообщений о ошибках
-                    # alignment=MainAxisAlignment.SPACE_EVENLY,
-                    controls=[
-                        self.error_field
-                    ]
-                )
-            ]
+        self.loading_animation = Container(
+            # gif-анимация загрузки
+            height=gif_loading_animation_offset,
+            width=btn_wigth,
+            padding=padding.only(top=110),
+            content=Image(
+                src='assets/images/animated_ball_loading.gif',
+            )
+        )
+
+        self.login_elements = Container(
+            # контейнер содержимого страницы
+            content=Column(
+                controls=[
+                    self.espn_logo,
+                    Row(
+                        # строка с номером и годом лиги
+                        width=espn_logo_wigth,
+                        alignment=MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            self.input_leagueid,
+                            self.input_leagueyr
+                        ]
+                    ),
+                    self.show_btn,
+                    Row(
+                        # строка с чекбоксом и ссылкой
+                        width=espn_logo_wigth,
+                        alignment=MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            self.chk_save_bx,
+                            self.anothe_league_link
+                        ]
+                    ),
+                ]
+            )
+        )
+
+        self.trasfer_from_login_to_animation = ft.AnimatedSwitcher(
+            # анимация перехода от статичных полей к анимации загрузки запроса
+            self.login_elements,
+            transition=ft.AnimatedSwitcherTransition.SCALE,
+            duration=5500,
+            switch_in_curve=ft.AnimationCurve.EASE_IN,
+            switch_out_curve=ft.AnimationCurve.EASE_OUT,
         )
 
         self.content = Container(
-            # контейнер всего содержимого страницы
+            # базовый контейнер страницы
             height=base_window_height,
             width=base_window_wigth,
             bgcolor=base_bg_color,
             alignment=alignment.center,
-
-            content=Stack(
+            content=Column(
                 controls=[
-
-                    # Container(
-                    #     # height=base_height,
-                    #     width=485,
-                    #     padding=padding.only(top=60),
-                    #
-                    #     content=Image(
-                    #         src='assets/images/animated_ball_loading.gif',
-                    #     )
-                    # ),
                     Container(
-                        # bgcolor="GREY",
-                        # основные жлементы страницы
-                        # padding=padding.only(top=385),
-                        content=self.loginpage_elements
+                        self.close_btn,
+                        padding=padding.only(right=30),
+                        alignment=alignment.top_right
                     ),
+                    Container(
+                        self.trasfer_from_login_to_animation,
+                        alignment=alignment.center
+                    ),
+                    Container(
+                        self.error_field,
+                        alignment=alignment.bottom_center,
+                        padding=padding.only(bottom=error_field_offset)
+                    )
                 ]
-            ),
+            )
         )
