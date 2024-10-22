@@ -18,7 +18,6 @@ def print_data_from_inputs(inputid, inputyr):
         if len(inputyr) == 4:
             try:
                 league = League(league_id=int(inputid), year=int(inputyr))
-                print(str(league.teams))
                 validation_data = ["Reviewing moments... Recounting numbers...", f"{positive_color}", league]
                 return validation_data
             except ESPNAccessDenied:

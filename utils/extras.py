@@ -1,5 +1,6 @@
 import flet as ft
 from flet import *
+import time
 
 base_window_height = 710
 base_window_wigth = 1250
