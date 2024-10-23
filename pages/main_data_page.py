@@ -60,7 +60,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[0]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -68,7 +68,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_0
+                    on_change=on_radio_change_0,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -79,7 +80,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[1]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -87,7 +88,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_1
+                    on_change=on_radio_change_1,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -98,7 +100,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[2]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -106,7 +108,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_2
+                    on_change=on_radio_change_2,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -117,7 +120,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[3]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -125,7 +128,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_3
+                    on_change=on_radio_change_3,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -136,7 +140,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[4]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -144,7 +148,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_4
+                    on_change=on_radio_change_4,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -155,7 +160,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[5]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -163,7 +168,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_5
+                    on_change=on_radio_change_5,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -174,7 +180,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[6]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -182,7 +188,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_6
+                    on_change=on_radio_change_6,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -193,7 +200,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[7]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -201,7 +208,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_7
+                    on_change=on_radio_change_7,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -212,7 +220,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[8]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -220,7 +228,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_8
+                    on_change=on_radio_change_8,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -231,7 +240,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[9]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -239,7 +248,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_9
+                    on_change=on_radio_change_9,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -250,7 +260,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[10]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -258,7 +268,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_10
+                    on_change=on_radio_change_10,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -269,7 +280,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[11]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -277,7 +288,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_11
+                    on_change=on_radio_change_11,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -288,7 +300,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[12]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -296,7 +308,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_12
+                    on_change=on_radio_change_12,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -307,7 +320,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[13]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -315,7 +328,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_13
+                    on_change=on_radio_change_13,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -326,7 +340,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[14]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -334,7 +348,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_14
+                    on_change=on_radio_change_14,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -345,7 +360,7 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
                 DataCell(content=Text('')),
-                DataCell(content=Text(f'{self.playes_data[15]["avg_points"]:.2f}')),
+                DataCell(content=Text('')),
                 DataCell(ft.RadioGroup(
                     content=Row([
                         Radio(value="2", label="2"),
@@ -353,7 +368,8 @@ class MainDataPage(Container):
                         Radio(value="4", label="4"),
                         Radio(value="5", label="5"),
                     ]),
-                    on_change=on_radio_change_15
+                    on_change=on_radio_change_15,
+                    disabled=True
                 )),
                 DataCell(content=Text('')),
             ]
@@ -381,7 +397,7 @@ class MainDataPage(Container):
                     Container(
                         alignment=alignment.center,
                         content=Column(
-                            height=450,
+                            height=535,
                             scroll=ScrollMode.ALWAYS,
                             controls=[
                                 DataTable(
@@ -412,7 +428,7 @@ class MainDataPage(Container):
                                             Text('AVR'),
                                         ),
                                         DataColumn(
-                                            Text('Games Number'),
+                                            Text('Number of Games'),
                                         ),
                                         DataColumn(
                                             Text('Week AVR'),

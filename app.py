@@ -143,7 +143,7 @@ class App(UserControl):
                 else:
                     with open("assets/data_files/league_login_data_save.txt", "w") as file:
                         file.write("")
-                time.sleep(0.5)
+                time.sleep(7.5)
                 self.switch_page()
 
     def on_radio_change_0(self, e):
@@ -274,61 +274,22 @@ class App(UserControl):
                 empty_player = {
                     "name": "",
                     "position": "",
-                    "avg_points": "",
+                    "avg_points": 0.00,
                     "injury": ""
                 }
                 players_sorted.append(empty_player)
             return players_sorted
         players_data = colleсt_and_sort_players_info()
-        # передаем данные в ячейки
-        self.main_data_page.DataRow0.cells[0].content.value = players_data[0]["position"]
-        self.main_data_page.DataRow0.cells[1].content.value = players_data[0]["name"]
-        self.main_data_page.DataRow0.cells[2].content.value = players_data[0]["injury"]
-        self.main_data_page.DataRow1.cells[0].content.value = players_data[1]["position"]
-        self.main_data_page.DataRow1.cells[1].content.value = players_data[1]["name"]
-        self.main_data_page.DataRow1.cells[2].content.value = players_data[1]["injury"]
-        self.main_data_page.DataRow2.cells[0].content.value = players_data[2]["position"]
-        self.main_data_page.DataRow2.cells[1].content.value = players_data[2]["name"]
-        self.main_data_page.DataRow2.cells[2].content.value = players_data[2]["injury"]
-        self.main_data_page.DataRow3.cells[0].content.value = players_data[3]["position"]
-        self.main_data_page.DataRow3.cells[1].content.value = players_data[3]["name"]
-        self.main_data_page.DataRow3.cells[2].content.value = players_data[3]["injury"]
-        self.main_data_page.DataRow4.cells[0].content.value = players_data[4]["position"]
-        self.main_data_page.DataRow4.cells[1].content.value = players_data[4]["name"]
-        self.main_data_page.DataRow4.cells[2].content.value = players_data[4]["injury"]
-        self.main_data_page.DataRow5.cells[0].content.value = players_data[5]["position"]
-        self.main_data_page.DataRow5.cells[1].content.value = players_data[5]["name"]
-        self.main_data_page.DataRow5.cells[2].content.value = players_data[5]["injury"]
-        self.main_data_page.DataRow6.cells[0].content.value = players_data[6]["position"]
-        self.main_data_page.DataRow6.cells[1].content.value = players_data[6]["name"]
-        self.main_data_page.DataRow6.cells[2].content.value = players_data[6]["injury"]
-        self.main_data_page.DataRow7.cells[0].content.value = players_data[7]["position"]
-        self.main_data_page.DataRow7.cells[1].content.value = players_data[7]["name"]
-        self.main_data_page.DataRow7.cells[2].content.value = players_data[7]["injury"]
-        self.main_data_page.DataRow8.cells[0].content.value = players_data[8]["position"]
-        self.main_data_page.DataRow8.cells[1].content.value = players_data[8]["name"]
-        self.main_data_page.DataRow8.cells[2].content.value = players_data[8]["injury"]
-        self.main_data_page.DataRow9.cells[0].content.value = players_data[9]["position"]
-        self.main_data_page.DataRow9.cells[1].content.value = players_data[9]["name"]
-        self.main_data_page.DataRow9.cells[2].content.value = players_data[9]["injury"]
-        self.main_data_page.DataRow10.cells[0].content.value = players_data[10]["position"]
-        self.main_data_page.DataRow10.cells[1].content.value = players_data[10]["name"]
-        self.main_data_page.DataRow10.cells[2].content.value = players_data[10]["injury"]
-        self.main_data_page.DataRow11.cells[0].content.value = players_data[11]["position"]
-        self.main_data_page.DataRow11.cells[1].content.value = players_data[11]["name"]
-        self.main_data_page.DataRow11.cells[2].content.value = players_data[11]["injury"]
-        self.main_data_page.DataRow12.cells[0].content.value = players_data[12]["position"]
-        self.main_data_page.DataRow12.cells[1].content.value = players_data[12]["name"]
-        self.main_data_page.DataRow12.cells[2].content.value = players_data[12]["injury"]
-        self.main_data_page.DataRow13.cells[0].content.value = players_data[13]["position"]
-        self.main_data_page.DataRow13.cells[1].content.value = players_data[13]["name"]
-        self.main_data_page.DataRow13.cells[2].content.value = players_data[13]["injury"]
-        self.main_data_page.DataRow14.cells[0].content.value = players_data[14]["position"]
-        self.main_data_page.DataRow14.cells[1].content.value = players_data[14]["name"]
-        self.main_data_page.DataRow14.cells[2].content.value = players_data[14]["injury"]
-        self.main_data_page.DataRow15.cells[0].content.value = players_data[15]["position"]
-        self.main_data_page.DataRow15.cells[1].content.value = players_data[15]["name"]
-        self.main_data_page.DataRow15.cells[2].content.value = players_data[15]["injury"]
+        # передаем данные в ячейки, а также обновляем состояние радиобаттонов и рассчитанный результат Week AVR
+        for i in range(16):
+            self.main_data_page.__getattribute__(f'DataRow{i}').cells[0].content.value = players_data[i]["position"]
+            self.main_data_page.__getattribute__(f'DataRow{i}').cells[1].content.value = players_data[i]["name"]
+            self.main_data_page.__getattribute__(f'DataRow{i}').cells[2].content.value = players_data[i]["injury"]
+            self.main_data_page.__getattribute__(f'DataRow{i}').cells[3].content.value = \
+                f'{players_data[i]["avg_points"]:.2f}'
+            self.main_data_page.__getattribute__(f'DataRow{i}').cells[4].content.value = None
+            self.main_data_page.__getattribute__(f'DataRow{i}').cells[4].content.disabled = False
+            self.main_data_page.__getattribute__(f'DataRow{i}').cells[5].content.value = ''
         self.main_data_page.update()
 
     def init_helper(self):
