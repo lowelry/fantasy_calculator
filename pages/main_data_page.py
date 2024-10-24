@@ -10,6 +10,7 @@ class MainDataPage(Container):
         super().__init__()
         self.expand = True
         self.offset = transform.Offset(0, 0)
+
         self.close_btn = Container(
             # кнопка закрытия приложения
             content=IconButton(
@@ -374,6 +375,53 @@ class MainDataPage(Container):
                 DataCell(content=Text('')),
             ]
         )
+        self.ghost_container = Container(
+            width=200,
+            height=200,
+            bgcolor=base_bg_color,
+        )
+
+        self.tabs_rail = Container(
+            height=120,
+            content=NavigationRail(
+                bgcolor=base_bg_color,
+                min_width=200,
+                label_type=ft.NavigationRailLabelType.NONE,
+                group_alignment=-0.9,
+                destinations=[
+                    ft.NavigationRailDestination(
+                        icon_content=Container(
+                            content=Text(
+                                value='Machup calculations',
+                                size=12,
+                                color=input_hint_color,
+                                weight=FontWeight.NORMAL
+                            ),
+                            ink=True,
+                            height=40,
+                            border_radius=5,
+                            alignment=alignment.center,
+                            on_click=lambda e: print("First clicked")
+                        )
+                    ),
+                    ft.NavigationRailDestination(
+                        icon_content=Container(
+                            content=Text(
+                                value='Player comparison',
+                                size=12,
+                                color=input_hint_color,
+                                weight=FontWeight.NORMAL
+                            ),
+                            # ink=True,
+                            height=40,
+                            border_radius=5,
+                            alignment=alignment.center,
+                            on_click=lambda e: print("Second clicked")
+                        )
+                    )
+                ]
+            )
+        )
 
         self.content = Container(
             # базовый контейнер страницы
@@ -394,67 +442,85 @@ class MainDataPage(Container):
                             self.teams_dropdown
                         ]
                     ),
-                    Container(
-                        alignment=alignment.center,
-                        content=Column(
-                            height=535,
-                            scroll=ScrollMode.ALWAYS,
-                            controls=[
-                                DataTable(
-                                    heading_text_style=TextStyle(
-                                        size=13,
-                                        color=input_hint_color,
-                                        weight=FontWeight.NORMAL,
-                                        font_family="Sansation",
-                                    ),
-                                    data_text_style=TextStyle(
-                                        size=13,
-                                        color=input_hint_color,
-                                        weight=FontWeight.NORMAL,
-                                        font_family="Sansation",
-                                    ),
-                                    show_checkbox_column=True,
-                                    columns=[
-                                        DataColumn(
-                                            Text('Slot'),
-                                        ),
-                                        DataColumn(
-                                            Text('Player'),
-                                        ),
-                                        DataColumn(
-                                            Text('Status'),
-                                        ),
-                                        DataColumn(
-                                            Text('AVR'),
-                                        ),
-                                        DataColumn(
-                                            Text('Number of Games'),
-                                        ),
-                                        DataColumn(
-                                            Text('Week AVR'),
+                    Row(
+                        controls=[
+                            Container(
+                                self.tabs_rail,
+                                padding=padding.only(left=30),
+                                alignment=alignment.top_left,
+                                expand=False
+                            ),
+                            Container(
+                                alignment=alignment.center,
+                                content=Column(
+                                    height=535,
+                                    scroll=ScrollMode.ALWAYS,
+                                    controls=[
+                                        DataTable(
+                                            heading_text_style=TextStyle(
+                                                size=13,
+                                                color=input_hint_color,
+                                                weight=FontWeight.NORMAL,
+                                                font_family="Sansation",
+                                            ),
+                                            data_text_style=TextStyle(
+                                                size=13,
+                                                color=input_hint_color,
+                                                weight=FontWeight.NORMAL,
+                                                font_family="Sansation",
+                                            ),
+                                            show_checkbox_column=True,
+                                            columns=[
+                                                DataColumn(
+                                                    Text('Slot')
+                                                ),
+                                                DataColumn(
+                                                    Text('Player')
+                                                ),
+                                                DataColumn(
+                                                    Text('Status')
+                                                ),
+                                                DataColumn(
+                                                    Text('AVR')
+                                                ),
+                                                DataColumn(
+                                                    Text('Number of Games')
+                                                ),
+                                                DataColumn(
+                                                    Text('Week AVR')
+                                                )
+                                            ],
+                                            rows=[
+                                                self.DataRow0,
+                                                self.DataRow1,
+                                                self.DataRow2,
+                                                self.DataRow3,
+                                                self.DataRow4,
+                                                self.DataRow5,
+                                                self.DataRow6,
+                                                self.DataRow7,
+                                                self.DataRow8,
+                                                self.DataRow9,
+                                                self.DataRow10,
+                                                self.DataRow11,
+                                                self.DataRow12,
+                                                self.DataRow13,
+                                                self.DataRow14,
+                                                self.DataRow15
+                                            ]
                                         )
-                                    ],
-                                    rows=[
-                                        self.DataRow0,
-                                        self.DataRow1,
-                                        self.DataRow2,
-                                        self.DataRow3,
-                                        self.DataRow4,
-                                        self.DataRow5,
-                                        self.DataRow6,
-                                        self.DataRow7,
-                                        self.DataRow8,
-                                        self.DataRow9,
-                                        self.DataRow10,
-                                        self.DataRow11,
-                                        self.DataRow12,
-                                        self.DataRow13,
-                                        self.DataRow14,
-                                        self.DataRow15
                                     ]
-                                )
-                            ]
-                        )
+                                ),
+                                expand=True
+                            ),
+                            Container(
+                                self.ghost_container,
+                                padding=padding.only(right=30),
+                                alignment=alignment.top_right,
+                                expand=False
+                            )
+                        ],
+                        vertical_alignment=ft.CrossAxisAlignment.START
                     )
                 ]
             )

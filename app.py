@@ -143,7 +143,7 @@ class App(UserControl):
                 else:
                     with open("assets/data_files/league_login_data_save.txt", "w") as file:
                         file.write("")
-                time.sleep(7.5)
+                time.sleep(0.5)
                 self.switch_page()
 
     def on_radio_change_0(self, e):
