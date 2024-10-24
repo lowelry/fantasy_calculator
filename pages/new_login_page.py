@@ -25,10 +25,13 @@ class LogInPage(Container):
             # кнопка закрытия приложения
             content=IconButton(
                 icon=icons.CLOSE,
-                icon_color=positive_color,
+                icon_color=input_hint_color,
                 icon_size=icons_size,
                 tooltip="close app",
-                on_click=close_btn_click
+                on_click=close_btn_click,
+                style=ft.ButtonStyle(
+                    overlay_color=positive_color
+                )
             )
         )
 

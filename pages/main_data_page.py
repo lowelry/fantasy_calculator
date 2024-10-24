@@ -15,11 +15,14 @@ class MainDataPage(Container):
             # кнопка закрытия приложения
             content=IconButton(
                 icon=icons.CLOSE,
-                icon_color=positive_color,
+                icon_color=input_hint_color,
                 icon_size=icons_size,
                 tooltip="close app",
-                on_click=close_btn_click
-            )
+                on_click=close_btn_click,
+                style=ft.ButtonStyle(
+                    overlay_color=positive_color
+                )
+            ),
         )
 
         # создаем пустышку наполнения таблицы
@@ -380,43 +383,67 @@ class MainDataPage(Container):
             height=200,
             bgcolor=base_bg_color,
         )
-
-        self.tabs_rail = Container(
-            height=120,
-            content=NavigationRail(
-                bgcolor=base_bg_color,
-                min_width=200,
-                label_type=ft.NavigationRailLabelType.NONE,
-                group_alignment=-0.9,
-                destinations=[
-                    ft.NavigationRailDestination(
-                        icon_content=Container(
-                            content=Text(
+        self.custom_tabs_menu = Container(
+            height=535,
+            width=200,
+            content=Column(
+                controls=[
+                    Container(
+                        padding=padding.only(top=89),
+                        content=TextButton(
+                            content=ft.Text(
                                 value='Machup calculations',
-                                size=12,
+                                size=13,
                                 color=input_hint_color,
-                                weight=FontWeight.NORMAL
+                                weight=ft.FontWeight.NORMAL
                             ),
-                            ink=True,
-                            height=40,
-                            border_radius=5,
-                            alignment=alignment.center,
-                            on_click=lambda e: print("First clicked")
+                            style=ft.ButtonStyle(
+                                bgcolor=base_bg_color,
+                                shape=ft.RoundedRectangleBorder(radius=5),
+                                overlay_color=positive_color
+                            ),
+                            height=50,
+                            width=200,
+                            on_click=lambda e: print("First clicked"),
+
                         )
                     ),
-                    ft.NavigationRailDestination(
-                        icon_content=Container(
-                            content=Text(
-                                value='Player comparison',
-                                size=12,
+                    Container(
+                        padding=padding.only(top=-10),
+                        content=TextButton(
+                            content=ft.Text(
+                                value='Player statistic',
+                                size=13,
                                 color=input_hint_color,
-                                weight=FontWeight.NORMAL
+                                weight=ft.FontWeight.NORMAL
                             ),
-                            # ink=True,
-                            height=40,
-                            border_radius=5,
-                            alignment=alignment.center,
+                            style=ft.ButtonStyle(
+                                bgcolor=base_bg_color,
+                                shape=ft.RoundedRectangleBorder(radius=5),
+                                overlay_color=positive_color
+                            ),
+                            height=50,
+                            width=200,
                             on_click=lambda e: print("Second clicked")
+                        )
+                    ),
+                    Container(
+                        padding=padding.only(top=-10),
+                        content=TextButton(
+                            content=ft.Text(
+                                value='Player comparison',
+                                size=13,
+                                color=input_hint_color,
+                                weight=ft.FontWeight.NORMAL
+                            ),
+                            style=ft.ButtonStyle(
+                                bgcolor=base_bg_color,
+                                shape=ft.RoundedRectangleBorder(radius=5),
+                                overlay_color=positive_color
+                            ),
+                            height=50,
+                            width=200,
+                            on_click=lambda e: print("Third clicked")
                         )
                     )
                 ]
@@ -431,96 +458,114 @@ class MainDataPage(Container):
             alignment=alignment.center,
             content=Column(
                 controls=[
-                    Container(
-                        self.close_btn,
-                        padding=padding.only(right=30),
-                        alignment=alignment.top_right
-                    ),
                     Row(
-                        alignment=MainAxisAlignment.CENTER,
+                        # верхня строка с базовыми кнопками
+                        alignment=ft.MainAxisAlignment.END,
                         controls=[
-                            self.teams_dropdown
+                            Container(
+                                self.close_btn,
+                                padding=padding.only(right=30),
+                                alignment=alignment.top_right
+                            )
                         ]
                     ),
                     Row(
+                        # строка с тремя основными контейнерами (левым, центральным и правым)
+                        alignment=MainAxisAlignment.SPACE_BETWEEN,
+                        vertical_alignment=CrossAxisAlignment.START,
                         controls=[
                             Container(
-                                self.tabs_rail,
+                                # левый контейнер для переключения подвкладок
+                                self.custom_tabs_menu,
                                 padding=padding.only(left=30),
                                 alignment=alignment.top_left,
                                 expand=False
                             ),
-                            Container(
-                                alignment=alignment.center,
-                                content=Column(
-                                    height=535,
-                                    scroll=ScrollMode.ALWAYS,
-                                    controls=[
-                                        DataTable(
-                                            heading_text_style=TextStyle(
-                                                size=13,
-                                                color=input_hint_color,
-                                                weight=FontWeight.NORMAL,
-                                                font_family="Sansation",
-                                            ),
-                                            data_text_style=TextStyle(
-                                                size=13,
-                                                color=input_hint_color,
-                                                weight=FontWeight.NORMAL,
-                                                font_family="Sansation",
-                                            ),
-                                            show_checkbox_column=True,
-                                            columns=[
-                                                DataColumn(
-                                                    Text('Slot')
-                                                ),
-                                                DataColumn(
-                                                    Text('Player')
-                                                ),
-                                                DataColumn(
-                                                    Text('Status')
-                                                ),
-                                                DataColumn(
-                                                    Text('AVR')
-                                                ),
-                                                DataColumn(
-                                                    Text('Number of Games')
-                                                ),
-                                                DataColumn(
-                                                    Text('Week AVR')
+                            Column(
+                                # колонна с дропдауном и таблицей данных
+                                controls=[
+                                    Row(
+                                        # строка с дропдауном
+                                        alignment=MainAxisAlignment.CENTER,
+                                        controls=[
+                                            self.teams_dropdown
+                                        ]
+                                    ),
+                                    Container(
+                                        # контейнер таблицы данных
+                                        alignment=alignment.center,
+                                        expand=False,
+                                        content=Column(
+                                            height=535,
+                                            scroll=ScrollMode.ALWAYS,
+                                            controls=[
+                                                DataTable(
+                                                    heading_text_style=TextStyle(
+                                                        size=13,
+                                                        color=input_hint_color,
+                                                        weight=FontWeight.NORMAL,
+                                                        font_family="Sansation",
+                                                    ),
+                                                    data_text_style=TextStyle(
+                                                        size=13,
+                                                        color=input_hint_color,
+                                                        weight=FontWeight.NORMAL,
+                                                        font_family="Sansation",
+                                                    ),
+                                                    show_checkbox_column=True,
+                                                    columns=[
+                                                        DataColumn(
+                                                            Text('Slot')
+                                                        ),
+                                                        DataColumn(
+                                                            Text('Player')
+                                                        ),
+                                                        DataColumn(
+                                                            Text('Status')
+                                                        ),
+                                                        DataColumn(
+                                                            Text('AVR')
+                                                        ),
+                                                        DataColumn(
+                                                            Text('Number of Games')
+                                                        ),
+                                                        DataColumn(
+                                                            Text('Week AVR')
+                                                        )
+                                                    ],
+                                                    rows=[
+                                                        self.DataRow0,
+                                                        self.DataRow1,
+                                                        self.DataRow2,
+                                                        self.DataRow3,
+                                                        self.DataRow4,
+                                                        self.DataRow5,
+                                                        self.DataRow6,
+                                                        self.DataRow7,
+                                                        self.DataRow8,
+                                                        self.DataRow9,
+                                                        self.DataRow10,
+                                                        self.DataRow11,
+                                                        self.DataRow12,
+                                                        self.DataRow13,
+                                                        self.DataRow14,
+                                                        self.DataRow15
+                                                    ]
                                                 )
-                                            ],
-                                            rows=[
-                                                self.DataRow0,
-                                                self.DataRow1,
-                                                self.DataRow2,
-                                                self.DataRow3,
-                                                self.DataRow4,
-                                                self.DataRow5,
-                                                self.DataRow6,
-                                                self.DataRow7,
-                                                self.DataRow8,
-                                                self.DataRow9,
-                                                self.DataRow10,
-                                                self.DataRow11,
-                                                self.DataRow12,
-                                                self.DataRow13,
-                                                self.DataRow14,
-                                                self.DataRow15
                                             ]
                                         )
-                                    ]
-                                ),
-                                expand=True
+                                    )
+                                ],
+                                horizontal_alignment=CrossAxisAlignment.CENTER
                             ),
                             Container(
+                                # теневой контейнер справа
                                 self.ghost_container,
                                 padding=padding.only(right=30),
                                 alignment=alignment.top_right,
                                 expand=False
                             )
-                        ],
-                        vertical_alignment=ft.CrossAxisAlignment.START
+                        ]
                     )
                 ]
             )
