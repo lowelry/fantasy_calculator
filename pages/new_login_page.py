@@ -35,6 +35,20 @@ class LogInPage(Container):
             )
         )
 
+        self.change_theme_btn = Container(
+            # кнопка закрытия приложения
+            content=IconButton(
+                icon=icons.WB_SUNNY_OUTLINED,
+                icon_color=input_hint_color,
+                icon_size=icons_size,
+                tooltip="change theme",
+                # on_click=close_btn_click,
+                style=ft.ButtonStyle(
+                    overlay_color=positive_color
+                )
+            ),
+        )
+
         self.espn_logo = Container(
             # основное лого
             width=espn_logo_wigth,
@@ -233,10 +247,20 @@ class LogInPage(Container):
             alignment=alignment.center,
             content=Column(
                 controls=[
-                    Container(
-                        self.close_btn,
-                        padding=padding.only(right=30),
-                        alignment=alignment.top_right
+                    Row(
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            Container(
+                                self.change_theme_btn,
+                                padding=padding.only(left=30),
+                                alignment=alignment.top_left
+                            ),
+                            Container(
+                                self.close_btn,
+                                padding=padding.only(right=30),
+                                alignment=alignment.top_right
+                            ),
+                        ]
                     ),
                     Container(
                         self.trasfer_from_login_to_animation,

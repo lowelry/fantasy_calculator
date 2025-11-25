@@ -2,7 +2,8 @@ import re
 from espn_api.basketball import League
 from espn_api.requests.espn_requests import ESPNInvalidLeague, ESPNAccessDenied, ESPNUnknownError
 from utils.extras import positive_color
-
+import logging
+import requests
 
 def is_valid_input_str(input_str):
 
